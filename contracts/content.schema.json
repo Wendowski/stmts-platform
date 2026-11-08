@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://stmts.example/schemas/content-v0.json",
+  "$id": "https://stmts.example/schemas/content-v1.json",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -18,8 +18,9 @@
     },
     "blocks": {
       "type": "array",
+      "maxItems": 2000,
       "items": {
-        "$ref": "#/$defs/node"
+        "$ref": "#/$defs/documentBlock"
       }
     },
     "plainText": {
@@ -44,7 +45,7 @@
     }
   },
   "$defs": {
-    "node": {
+    "text": {
       "type": "object",
       "additionalProperties": false,
       "required": [
@@ -55,66 +56,1181 @@
       ],
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
         },
         "type": {
-          "enum": [
-            "paragraph",
-            "heading",
-            "list",
-            "orderedList",
-            "item",
-            "quote",
-            "table",
-            "tableHead",
-            "tableBody",
-            "row",
-            "headerCell",
-            "cell",
-            "code",
-            "rule",
-            "text",
-            "codeInline",
-            "strong",
-            "emphasis",
-            "strike",
-            "link",
-            "span"
-          ]
+          "const": "text"
         },
         "text": {
-          "type": "string"
+          "type": "string",
+          "maxLength": 50000
+        },
+        "children": {
+          "type": "array",
+          "maxItems": 0,
+          "items": false
+        }
+      }
+    },
+    "codeInline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "text",
+        "children"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "type": {
+          "const": "codeInline"
+        },
+        "text": {
+          "type": "string",
+          "maxLength": 50000
+        },
+        "children": {
+          "type": "array",
+          "maxItems": 0,
+          "items": false
+        }
+      }
+    },
+    "strong": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "text",
+        "children"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "type": {
+          "const": "strong"
+        },
+        "text": {
+          "const": ""
         },
         "children": {
           "type": "array",
           "items": {
-            "$ref": "#/$defs/node"
+            "$ref": "#/$defs/inline"
           }
+        }
+      }
+    },
+    "emphasis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "text",
+        "children"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "type": {
+          "const": "emphasis"
+        },
+        "text": {
+          "const": ""
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/inline"
+          }
+        }
+      }
+    },
+    "strike": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "text",
+        "children"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "type": {
+          "const": "strike"
+        },
+        "text": {
+          "const": ""
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/inline"
+          }
+        }
+      }
+    },
+    "link": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "text",
+        "children",
+        "url"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "type": {
+          "const": "link"
+        },
+        "text": {
+          "const": ""
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/linkChild"
+          }
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^(https?://[^/\\s?#]+(?:[/?#][^\\s]*)?|mailto:[^\\s]+)$"
+        }
+      }
+    },
+    "span": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "text",
+        "children"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "type": {
+          "const": "span"
+        },
+        "text": {
+          "const": ""
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/inline"
+          }
+        }
+      }
+    },
+    "paragraph": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "text",
+        "children",
+        "sourceSpan"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "type": {
+          "const": "paragraph"
+        },
+        "text": {
+          "const": ""
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/inline"
+          }
+        },
+        "sourceSpan": {
+          "description": "Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land.",
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "integer",
+              "minimum": 0
+            }
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        }
+      }
+    },
+    "heading": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "text",
+        "children",
+        "sourceSpan",
+        "depth"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "type": {
+          "const": "heading"
+        },
+        "text": {
+          "const": ""
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/inline"
+          }
+        },
+        "sourceSpan": {
+          "description": "Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land.",
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "integer",
+              "minimum": 0
+            }
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
         },
         "depth": {
           "type": "integer",
           "minimum": 1,
           "maximum": 6
-        },
-        "start": {
-          "type": "integer"
-        },
-        "url": {
+        }
+      }
+    },
+    "list": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "text",
+        "children",
+        "sourceSpan"
+      ],
+      "properties": {
+        "id": {
           "type": "string",
-          "pattern": "^(https?://|mailto:)"
+          "minLength": 1,
+          "maxLength": 128
         },
-        "language": {
-          "type": "string"
+        "type": {
+          "const": "list"
         },
-        "sourceSpan": {
+        "text": {
+          "const": ""
+        },
+        "children": {
           "type": "array",
           "items": {
-            "type": "integer"
-          },
+            "$ref": "#/$defs/listItem"
+          }
+        },
+        "sourceSpan": {
+          "description": "Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land.",
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "integer",
+              "minimum": 0
+            }
+          ],
+          "items": false,
           "minItems": 2,
           "maxItems": 2
         }
       }
+    },
+    "orderedList": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "text",
+        "children",
+        "sourceSpan",
+        "start"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "type": {
+          "const": "orderedList"
+        },
+        "text": {
+          "const": ""
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/listItem"
+          }
+        },
+        "sourceSpan": {
+          "description": "Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land.",
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "integer",
+              "minimum": 0
+            }
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "start": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 999999999
+        }
+      }
+    },
+    "quote": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "text",
+        "children",
+        "sourceSpan"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "type": {
+          "const": "quote"
+        },
+        "text": {
+          "const": ""
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/documentBlock"
+          }
+        },
+        "sourceSpan": {
+          "description": "Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land.",
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "integer",
+              "minimum": 0
+            }
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        }
+      }
+    },
+    "table": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "text",
+        "children",
+        "sourceSpan"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "type": {
+          "const": "table"
+        },
+        "text": {
+          "const": ""
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/tableSection"
+          }
+        },
+        "sourceSpan": {
+          "description": "Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land.",
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "integer",
+              "minimum": 0
+            }
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        }
+      }
+    },
+    "code": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "text",
+        "children",
+        "sourceSpan",
+        "language"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "type": {
+          "const": "code"
+        },
+        "text": {
+          "type": "string",
+          "maxLength": 50000
+        },
+        "children": {
+          "type": "array",
+          "maxItems": 0,
+          "items": false
+        },
+        "sourceSpan": {
+          "description": "Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land.",
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "integer",
+              "minimum": 0
+            }
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "language": {
+          "type": "string",
+          "maxLength": 50000
+        }
+      }
+    },
+    "rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "text",
+        "children",
+        "sourceSpan"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "type": {
+          "const": "rule"
+        },
+        "text": {
+          "const": ""
+        },
+        "children": {
+          "type": "array",
+          "maxItems": 0,
+          "items": false
+        },
+        "sourceSpan": {
+          "description": "Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land.",
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "integer",
+              "minimum": 0
+            }
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        }
+      }
+    },
+    "media": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "text",
+        "children",
+        "sourceSpan",
+        "attachmentId",
+        "mediaType",
+        "alt",
+        "decorative",
+        "caption"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "type": {
+          "const": "media"
+        },
+        "text": {
+          "const": ""
+        },
+        "children": {
+          "type": "array",
+          "maxItems": 0,
+          "items": false
+        },
+        "sourceSpan": {
+          "description": "Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land.",
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "integer",
+              "minimum": 0
+            }
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "attachmentId": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+        },
+        "mediaType": {
+          "enum": [
+            "image",
+            "video"
+          ]
+        },
+        "alt": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "decorative": {
+          "type": "boolean"
+        },
+        "caption": {
+          "type": "string",
+          "maxLength": 500
+        }
+      }
+    },
+    "item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "text",
+        "children",
+        "sourceSpan"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "type": {
+          "const": "item"
+        },
+        "text": {
+          "const": ""
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/documentBlock"
+          }
+        },
+        "sourceSpan": {
+          "description": "Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land.",
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "integer",
+              "minimum": 0
+            }
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        }
+      }
+    },
+    "taskItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "text",
+        "children",
+        "sourceSpan",
+        "checked"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "type": {
+          "const": "taskItem"
+        },
+        "text": {
+          "const": ""
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/documentBlock"
+          }
+        },
+        "sourceSpan": {
+          "description": "Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land.",
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "integer",
+              "minimum": 0
+            }
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "checked": {
+          "type": "boolean"
+        }
+      }
+    },
+    "tableHead": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "text",
+        "children",
+        "sourceSpan"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "type": {
+          "const": "tableHead"
+        },
+        "text": {
+          "const": ""
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/row"
+          }
+        },
+        "sourceSpan": {
+          "description": "Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land.",
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "integer",
+              "minimum": 0
+            }
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        }
+      }
+    },
+    "tableBody": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "text",
+        "children",
+        "sourceSpan"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "type": {
+          "const": "tableBody"
+        },
+        "text": {
+          "const": ""
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/row"
+          }
+        },
+        "sourceSpan": {
+          "description": "Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land.",
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "integer",
+              "minimum": 0
+            }
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        }
+      }
+    },
+    "row": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "text",
+        "children",
+        "sourceSpan"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "type": {
+          "const": "row"
+        },
+        "text": {
+          "const": ""
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/tableCell"
+          }
+        },
+        "sourceSpan": {
+          "description": "Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land.",
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "integer",
+              "minimum": 0
+            }
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        }
+      }
+    },
+    "headerCell": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "text",
+        "children",
+        "sourceSpan"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "type": {
+          "const": "headerCell"
+        },
+        "text": {
+          "const": ""
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/inline"
+          }
+        },
+        "sourceSpan": {
+          "description": "Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land.",
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "integer",
+              "minimum": 0
+            }
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        }
+      }
+    },
+    "cell": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "text",
+        "children",
+        "sourceSpan"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "type": {
+          "const": "cell"
+        },
+        "text": {
+          "const": ""
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/inline"
+          }
+        },
+        "sourceSpan": {
+          "description": "Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land.",
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "integer",
+              "minimum": 0
+            }
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        }
+      }
+    },
+    "node": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/text"
+        },
+        {
+          "$ref": "#/$defs/codeInline"
+        },
+        {
+          "$ref": "#/$defs/strong"
+        },
+        {
+          "$ref": "#/$defs/emphasis"
+        },
+        {
+          "$ref": "#/$defs/strike"
+        },
+        {
+          "$ref": "#/$defs/link"
+        },
+        {
+          "$ref": "#/$defs/span"
+        },
+        {
+          "$ref": "#/$defs/paragraph"
+        },
+        {
+          "$ref": "#/$defs/heading"
+        },
+        {
+          "$ref": "#/$defs/list"
+        },
+        {
+          "$ref": "#/$defs/orderedList"
+        },
+        {
+          "$ref": "#/$defs/quote"
+        },
+        {
+          "$ref": "#/$defs/table"
+        },
+        {
+          "$ref": "#/$defs/code"
+        },
+        {
+          "$ref": "#/$defs/rule"
+        },
+        {
+          "$ref": "#/$defs/media"
+        },
+        {
+          "$ref": "#/$defs/item"
+        },
+        {
+          "$ref": "#/$defs/taskItem"
+        },
+        {
+          "$ref": "#/$defs/tableHead"
+        },
+        {
+          "$ref": "#/$defs/tableBody"
+        },
+        {
+          "$ref": "#/$defs/row"
+        },
+        {
+          "$ref": "#/$defs/headerCell"
+        },
+        {
+          "$ref": "#/$defs/cell"
+        }
+      ]
+    },
+    "inline": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/text"
+        },
+        {
+          "$ref": "#/$defs/codeInline"
+        },
+        {
+          "$ref": "#/$defs/strong"
+        },
+        {
+          "$ref": "#/$defs/emphasis"
+        },
+        {
+          "$ref": "#/$defs/strike"
+        },
+        {
+          "$ref": "#/$defs/link"
+        },
+        {
+          "$ref": "#/$defs/span"
+        }
+      ]
+    },
+    "linkChild": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/text"
+        },
+        {
+          "$ref": "#/$defs/codeInline"
+        },
+        {
+          "$ref": "#/$defs/strong"
+        },
+        {
+          "$ref": "#/$defs/emphasis"
+        },
+        {
+          "$ref": "#/$defs/strike"
+        },
+        {
+          "$ref": "#/$defs/span"
+        }
+      ]
+    },
+    "documentBlock": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/paragraph"
+        },
+        {
+          "$ref": "#/$defs/heading"
+        },
+        {
+          "$ref": "#/$defs/list"
+        },
+        {
+          "$ref": "#/$defs/orderedList"
+        },
+        {
+          "$ref": "#/$defs/quote"
+        },
+        {
+          "$ref": "#/$defs/table"
+        },
+        {
+          "$ref": "#/$defs/code"
+        },
+        {
+          "$ref": "#/$defs/rule"
+        },
+        {
+          "$ref": "#/$defs/media"
+        }
+      ]
+    },
+    "listItem": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/item"
+        },
+        {
+          "$ref": "#/$defs/taskItem"
+        }
+      ]
+    },
+    "tableSection": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/tableHead"
+        },
+        {
+          "$ref": "#/$defs/tableBody"
+        }
+      ]
+    },
+    "tableCell": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/headerCell"
+        },
+        {
+          "$ref": "#/$defs/cell"
+        }
+      ]
     }
-  }
+  },
+  "description": "stmts-md/1 canonical transport. Structural validation does not grant attachment access or replace parser resource limits."
 }

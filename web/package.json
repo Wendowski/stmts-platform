@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:web": "node dist/web/server/server.mjs",
-    "generate:api": "openapi-typescript ../contracts/openapi.yaml -o src/app/api.generated.ts",
+    "generate:api": "openapi-typescript ../contracts/openapi.yaml --array-length -o src/app/api.generated.ts",
     "check:contract": "npm run generate:api && git diff --exit-code -- src/app/api.generated.ts"
   },
   "private": true,

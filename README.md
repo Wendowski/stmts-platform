@@ -26,10 +26,15 @@ Open http://127.0.0.1:4200/ for the API-backed development card. Continue readin
 
 `serve_fixture.py` intentionally starts a development-only, database-free read endpoint. It is not a production WSGI server. The normal Django configuration requires a secret outside development and PostgreSQL for future persistence. There is no seeded login because identity is not implemented.
 
+## Git history
+
+Work is committed on `main`. No remote is configured. The source archive includes the `.git` directory and a portable `stmts-history.bundle`; extract hidden files too. To restore history independently, run `git clone stmts-history.bundle stmts-restored`. See `docs/next-10-tasks.md` for the ordered plan.
+
 ## Checks
 
 ```sh
 STMTS_DEVELOPMENT=1 .venv/bin/pytest -q
+python scripts/sync_content_contract.py
 python scripts/generate_tokens.py
 .venv/bin/python scripts/generate_fixture.py
 cd web

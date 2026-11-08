@@ -39,33 +39,402 @@ export interface components {
             };
             content: components["schemas"]["Content"];
         };
-        Block: {
-            id: string;
-            /** @enum {unknown} */
-            type: "paragraph" | "heading" | "list" | "orderedList" | "item" | "quote" | "table" | "tableHead" | "tableBody" | "row" | "headerCell" | "cell" | "code" | "rule" | "text" | "codeInline" | "strong" | "emphasis" | "strike" | "link" | "span";
-            text: string;
-            children: components["schemas"]["Block"][];
-            depth?: number;
-            start?: number;
-            url?: string;
-            language?: string;
-            sourceSpan?: number[];
+        Error: {
+            code: string;
+            message: string;
+            requestId: string;
         };
+        /** @description stmts-md/1 canonical transport. Structural validation does not grant attachment access or replace parser resource limits. */
         Content: {
             /** @constant */
             dialect: "stmts-md/1";
-            blocks: components["schemas"]["Block"][];
+            blocks: components["schemas"]["ContentDocumentBlock"][];
             plainText: string;
             excerpt: string;
             readingMinutes: number;
             isShort: boolean;
             validationErrors: string[];
         };
-        Error: {
-            code: string;
-            message: string;
-            requestId: string;
+        ContentText: {
+            id: string;
+            /** @constant */
+            type: "text";
+            text: string;
+            children: [
+            ];
         };
+        ContentCodeInline: {
+            id: string;
+            /** @constant */
+            type: "codeInline";
+            text: string;
+            children: [
+            ];
+        };
+        ContentStrong: {
+            id: string;
+            /** @constant */
+            type: "strong";
+            /** @constant */
+            text: "";
+            children: components["schemas"]["ContentInline"][];
+        };
+        ContentEmphasis: {
+            id: string;
+            /** @constant */
+            type: "emphasis";
+            /** @constant */
+            text: "";
+            children: components["schemas"]["ContentInline"][];
+        };
+        ContentStrike: {
+            id: string;
+            /** @constant */
+            type: "strike";
+            /** @constant */
+            text: "";
+            children: components["schemas"]["ContentInline"][];
+        };
+        ContentLink: {
+            id: string;
+            /** @constant */
+            type: "link";
+            /** @constant */
+            text: "";
+            children: components["schemas"]["ContentLinkChild"][];
+            url: string;
+        };
+        ContentSpan: {
+            id: string;
+            /** @constant */
+            type: "span";
+            /** @constant */
+            text: "";
+            children: components["schemas"]["ContentInline"][];
+        };
+        ContentParagraph: {
+            id: string;
+            /** @constant */
+            type: "paragraph";
+            /** @constant */
+            text: "";
+            children: components["schemas"]["ContentInline"][];
+            /** @description Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land. */
+            sourceSpan: [
+                [
+                    number,
+                    number
+                ],
+                [
+                    number,
+                    number
+                ]
+            ];
+        };
+        ContentHeading: {
+            id: string;
+            /** @constant */
+            type: "heading";
+            /** @constant */
+            text: "";
+            children: components["schemas"]["ContentInline"][];
+            /** @description Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land. */
+            sourceSpan: [
+                [
+                    number,
+                    number
+                ],
+                [
+                    number,
+                    number
+                ]
+            ];
+            depth: number;
+        };
+        ContentList: {
+            id: string;
+            /** @constant */
+            type: "list";
+            /** @constant */
+            text: "";
+            children: components["schemas"]["ContentListItem"][];
+            /** @description Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land. */
+            sourceSpan: [
+                [
+                    number,
+                    number
+                ],
+                [
+                    number,
+                    number
+                ]
+            ];
+        };
+        ContentOrderedList: {
+            id: string;
+            /** @constant */
+            type: "orderedList";
+            /** @constant */
+            text: "";
+            children: components["schemas"]["ContentListItem"][];
+            /** @description Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land. */
+            sourceSpan: [
+                [
+                    number,
+                    number
+                ],
+                [
+                    number,
+                    number
+                ]
+            ];
+            start: number;
+        };
+        ContentQuote: {
+            id: string;
+            /** @constant */
+            type: "quote";
+            /** @constant */
+            text: "";
+            children: components["schemas"]["ContentDocumentBlock"][];
+            /** @description Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land. */
+            sourceSpan: [
+                [
+                    number,
+                    number
+                ],
+                [
+                    number,
+                    number
+                ]
+            ];
+        };
+        ContentTable: {
+            id: string;
+            /** @constant */
+            type: "table";
+            /** @constant */
+            text: "";
+            children: components["schemas"]["ContentTableSection"][];
+            /** @description Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land. */
+            sourceSpan: [
+                [
+                    number,
+                    number
+                ],
+                [
+                    number,
+                    number
+                ]
+            ];
+        };
+        ContentCode: {
+            id: string;
+            /** @constant */
+            type: "code";
+            text: string;
+            children: [
+            ];
+            /** @description Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land. */
+            sourceSpan: [
+                [
+                    number,
+                    number
+                ],
+                [
+                    number,
+                    number
+                ]
+            ];
+            language: string;
+        };
+        ContentRule: {
+            id: string;
+            /** @constant */
+            type: "rule";
+            /** @constant */
+            text: "";
+            children: [
+            ];
+            /** @description Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land. */
+            sourceSpan: [
+                [
+                    number,
+                    number
+                ],
+                [
+                    number,
+                    number
+                ]
+            ];
+        };
+        ContentMedia: {
+            id: string;
+            /** @constant */
+            type: "media";
+            /** @constant */
+            text: "";
+            children: [
+            ];
+            /** @description Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land. */
+            sourceSpan: [
+                [
+                    number,
+                    number
+                ],
+                [
+                    number,
+                    number
+                ]
+            ];
+            attachmentId: string;
+            /** @enum {unknown} */
+            mediaType: "image" | "video";
+            alt: string;
+            decorative: boolean;
+            caption: string;
+        };
+        ContentItem: {
+            id: string;
+            /** @constant */
+            type: "item";
+            /** @constant */
+            text: "";
+            children: components["schemas"]["ContentDocumentBlock"][];
+            /** @description Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land. */
+            sourceSpan: [
+                [
+                    number,
+                    number
+                ],
+                [
+                    number,
+                    number
+                ]
+            ];
+        };
+        ContentTaskItem: {
+            id: string;
+            /** @constant */
+            type: "taskItem";
+            /** @constant */
+            text: "";
+            children: components["schemas"]["ContentDocumentBlock"][];
+            /** @description Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land. */
+            sourceSpan: [
+                [
+                    number,
+                    number
+                ],
+                [
+                    number,
+                    number
+                ]
+            ];
+            checked: boolean;
+        };
+        ContentTableHead: {
+            id: string;
+            /** @constant */
+            type: "tableHead";
+            /** @constant */
+            text: "";
+            children: components["schemas"]["ContentRow"][];
+            /** @description Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land. */
+            sourceSpan: [
+                [
+                    number,
+                    number
+                ],
+                [
+                    number,
+                    number
+                ]
+            ];
+        };
+        ContentTableBody: {
+            id: string;
+            /** @constant */
+            type: "tableBody";
+            /** @constant */
+            text: "";
+            children: components["schemas"]["ContentRow"][];
+            /** @description Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land. */
+            sourceSpan: [
+                [
+                    number,
+                    number
+                ],
+                [
+                    number,
+                    number
+                ]
+            ];
+        };
+        ContentRow: {
+            id: string;
+            /** @constant */
+            type: "row";
+            /** @constant */
+            text: "";
+            children: components["schemas"]["ContentTableCell"][];
+            /** @description Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land. */
+            sourceSpan: [
+                [
+                    number,
+                    number
+                ],
+                [
+                    number,
+                    number
+                ]
+            ];
+        };
+        ContentHeaderCell: {
+            id: string;
+            /** @constant */
+            type: "headerCell";
+            /** @constant */
+            text: "";
+            children: components["schemas"]["ContentInline"][];
+            /** @description Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land. */
+            sourceSpan: [
+                [
+                    number,
+                    number
+                ],
+                [
+                    number,
+                    number
+                ]
+            ];
+        };
+        ContentCell: {
+            id: string;
+            /** @constant */
+            type: "cell";
+            /** @constant */
+            text: "";
+            children: components["schemas"]["ContentInline"][];
+            /** @description Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land. */
+            sourceSpan: [
+                [
+                    number,
+                    number
+                ],
+                [
+                    number,
+                    number
+                ]
+            ];
+        };
+        Block: components["schemas"]["ContentText"] | components["schemas"]["ContentCodeInline"] | components["schemas"]["ContentStrong"] | components["schemas"]["ContentEmphasis"] | components["schemas"]["ContentStrike"] | components["schemas"]["ContentLink"] | components["schemas"]["ContentSpan"] | components["schemas"]["ContentParagraph"] | components["schemas"]["ContentHeading"] | components["schemas"]["ContentList"] | components["schemas"]["ContentOrderedList"] | components["schemas"]["ContentQuote"] | components["schemas"]["ContentTable"] | components["schemas"]["ContentCode"] | components["schemas"]["ContentRule"] | components["schemas"]["ContentMedia"] | components["schemas"]["ContentItem"] | components["schemas"]["ContentTaskItem"] | components["schemas"]["ContentTableHead"] | components["schemas"]["ContentTableBody"] | components["schemas"]["ContentRow"] | components["schemas"]["ContentHeaderCell"] | components["schemas"]["ContentCell"];
+        ContentInline: components["schemas"]["ContentText"] | components["schemas"]["ContentCodeInline"] | components["schemas"]["ContentStrong"] | components["schemas"]["ContentEmphasis"] | components["schemas"]["ContentStrike"] | components["schemas"]["ContentLink"] | components["schemas"]["ContentSpan"];
+        ContentLinkChild: components["schemas"]["ContentText"] | components["schemas"]["ContentCodeInline"] | components["schemas"]["ContentStrong"] | components["schemas"]["ContentEmphasis"] | components["schemas"]["ContentStrike"] | components["schemas"]["ContentSpan"];
+        ContentDocumentBlock: components["schemas"]["ContentParagraph"] | components["schemas"]["ContentHeading"] | components["schemas"]["ContentList"] | components["schemas"]["ContentOrderedList"] | components["schemas"]["ContentQuote"] | components["schemas"]["ContentTable"] | components["schemas"]["ContentCode"] | components["schemas"]["ContentRule"] | components["schemas"]["ContentMedia"];
+        ContentListItem: components["schemas"]["ContentItem"] | components["schemas"]["ContentTaskItem"];
+        ContentTableSection: components["schemas"]["ContentTableHead"] | components["schemas"]["ContentTableBody"];
+        ContentTableCell: components["schemas"]["ContentHeaderCell"] | components["schemas"]["ContentCell"];
     };
     responses: never;
     parameters: never;

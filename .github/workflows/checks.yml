@@ -12,7 +12,7 @@ jobs:
           python-version: "3.12"
       - run: pip install -r backend/requirements.lock
       - run: pytest -q
-      - run: python scripts/generate_fixture.py && python scripts/generate_tokens.py
+      - run: python scripts/sync_content_contract.py && python scripts/generate_fixture.py && python scripts/generate_tokens.py
       - run: git diff --exit-code
   angular:
     runs-on: ubuntu-latest

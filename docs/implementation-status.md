@@ -8,7 +8,7 @@ M0 foundation: **in progress**. M1 read-only rendering: **in progress**. Neither
 | M0 repository/toolchain | Web and Python locks; service configuration; CI; original design kit | Native locks, native builds and Docker startup unverified |
 | MD-001/004/007; CONTENT-001/003 | Canonical node parser, escaped text bindings, safe URL checks; no HTML trust bypass | 11 shared source fixtures exercised; rich native rendering and final dialect conformance incomplete |
 | MD-002; FEED-002 | Unicode source length, parser nesting/block bounds, excerpt/read time | Source-boundary tests pass; complete per-variant schema limits pending |
-| CONTENT-002 | Prototype strict-property recursive node schema and content-based block IDs | Schema validation passes; discriminated variants, media/tasks and stable duplicate-block matching pending |
+| CONTENT-002 | Discriminated per-variant schema, constrained tree structure and shared expected canonical documents | Task 1 contract scope complete; task/media parser emission, accurate spans, resource limits and stable duplicate-block matching remain pending |
 | READ-001; UI-001 | Angular responsive card/reader and Paper / Forest colors, table/code containers, TOC | Compiled; API-backed card and reader text verified in SSR HTML. Browser layout and TOC threshold refinement pending |
 | A11Y-001–004 | Semantic headings, skip link, labels, focus rings, reflow CSS | No browser, zoom, screen-reader, RTL or native-device acceptance evidence yet |
 | M1 native | SwiftUI package plus XcodeGen app definition; Compose Android scaffold; shared post JSON | Uncompiled text projections. Rich inline/list/table/link parity, theme integration and native contract generation pending |
@@ -33,3 +33,19 @@ M0 foundation: **in progress**. M1 read-only rendering: **in progress**. Neither
 4. Proceed to M2 persistent public reading and verified identity, then M3 drafts and publication transactions.
 
 Public deployment, real authentication, publishing, reactions, moderation, media uploads and store distribution are not implemented in this increment. Release policy decisions in the architect specification remain open.
+
+
+## Task 1 follow-up — strict contract and shared fixtures
+
+Completed the contract scope in `docs/next-10-tasks.md`. JSON Schema now defines exact node variants, leaf/container rules and required heading/link/task/media fields. OpenAPI is synchronized from that source; TypeScript is generated with array-length constraints. Added shared expected canonical documents for all 11 original designer sources and contract rejection tests. The original designer kit is unchanged.
+
+Observed checks in a fresh Python environment installed from the existing lockfile:
+
+- `STMTS_DEVELOPMENT=1 /tmp/stmts-check-env/bin/pytest -q -c stmts/pytest.ini`: **67 passed, 1 xfailed**. The single expected failure narrowly records missing task checkbox state; other fixture changes still fail.
+- `npm --prefix stmts/web run generate:api`: **passed**.
+- `npm --prefix stmts/web run build`: **passed**.
+- `/tmp/stmts-check-env/bin/python stmts/tests/verify_ssr.py`: **passed**, card and reader retain server-rendered fixture content.
+
+The stricter generated model initially exposed empty leaf arrays widening to `unknown[]`. Enabling array-length-aware generation resolved the type error without weakening the schema or casting away renderer types.
+
+Git history now contains a baseline commit, a plan/workflow commit and a cohesive contract implementation commit. No remote is configured and nothing is pushed. The delivered archive preserves the repository metadata and a full Git bundle. M0/M1 remain in progress; task 2 is next. Native/browser/device/database limitations from the initial increment still apply.

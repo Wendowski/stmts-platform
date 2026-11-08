@@ -67,63 +67,19 @@ components:
               type: string
         content:
           $ref: '#/components/schemas/Content'
-    Block:
+    Error:
       type: object
-      additionalProperties: false
       required:
-      - id
-      - type
-      - text
-      - children
+      - code
+      - message
+      - requestId
       properties:
-        id:
+        code:
           type: string
-        type:
-          enum:
-          - paragraph
-          - heading
-          - list
-          - orderedList
-          - item
-          - quote
-          - table
-          - tableHead
-          - tableBody
-          - row
-          - headerCell
-          - cell
-          - code
-          - rule
-          - text
-          - codeInline
-          - strong
-          - emphasis
-          - strike
-          - link
-          - span
-        text:
+        message:
           type: string
-        children:
-          type: array
-          items:
-            $ref: '#/components/schemas/Block'
-        depth:
-          type: integer
-          minimum: 1
-          maximum: 6
-        start:
-          type: integer
-        url:
+        requestId:
           type: string
-          pattern: ^(https?://|mailto:)
-        language:
-          type: string
-        sourceSpan:
-          type: array
-          items:
-            type: integer
-          minItems: 2
-          maxItems: 2
     Content:
       type: object
       additionalProperties: false
@@ -140,8 +96,9 @@ components:
           const: stmts-md/1
         blocks:
           type: array
+          maxItems: 2000
           items:
-            $ref: '#/components/schemas/Block'
+            $ref: '#/components/schemas/ContentDocumentBlock'
         plainText:
           type: string
         excerpt:
@@ -156,16 +113,805 @@ components:
           type: array
           items:
             type: string
-    Error:
+      description: stmts-md/1 canonical transport. Structural validation does not
+        grant attachment access or replace parser resource limits.
+    ContentText:
       type: object
+      additionalProperties: false
       required:
-      - code
-      - message
-      - requestId
+      - id
+      - type
+      - text
+      - children
       properties:
-        code:
+        id:
           type: string
-        message:
+          minLength: 1
+          maxLength: 128
+        type:
+          const: text
+        text:
           type: string
-        requestId:
+          maxLength: 50000
+        children:
+          type: array
+          maxItems: 0
+          items: false
+    ContentCodeInline:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - type
+      - text
+      - children
+      properties:
+        id:
           type: string
+          minLength: 1
+          maxLength: 128
+        type:
+          const: codeInline
+        text:
+          type: string
+          maxLength: 50000
+        children:
+          type: array
+          maxItems: 0
+          items: false
+    ContentStrong:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - type
+      - text
+      - children
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 128
+        type:
+          const: strong
+        text:
+          const: ''
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentInline'
+    ContentEmphasis:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - type
+      - text
+      - children
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 128
+        type:
+          const: emphasis
+        text:
+          const: ''
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentInline'
+    ContentStrike:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - type
+      - text
+      - children
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 128
+        type:
+          const: strike
+        text:
+          const: ''
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentInline'
+    ContentLink:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - type
+      - text
+      - children
+      - url
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 128
+        type:
+          const: link
+        text:
+          const: ''
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentLinkChild'
+        url:
+          type: string
+          pattern: ^(https?://[^/\s?#]+(?:[/?#][^\s]*)?|mailto:[^\s]+)$
+    ContentSpan:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - type
+      - text
+      - children
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 128
+        type:
+          const: span
+        text:
+          const: ''
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentInline'
+    ContentParagraph:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - type
+      - text
+      - children
+      - sourceSpan
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 128
+        type:
+          const: paragraph
+        text:
+          const: ''
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentInline'
+        sourceSpan:
+          description: Zero-based half-open source line range; derived table wrappers
+            may use [0,0] until precise spans land.
+          type: array
+          prefixItems:
+          - type: integer
+            minimum: 0
+          - type: integer
+            minimum: 0
+          items: false
+          minItems: 2
+          maxItems: 2
+    ContentHeading:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - type
+      - text
+      - children
+      - sourceSpan
+      - depth
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 128
+        type:
+          const: heading
+        text:
+          const: ''
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentInline'
+        sourceSpan:
+          description: Zero-based half-open source line range; derived table wrappers
+            may use [0,0] until precise spans land.
+          type: array
+          prefixItems:
+          - type: integer
+            minimum: 0
+          - type: integer
+            minimum: 0
+          items: false
+          minItems: 2
+          maxItems: 2
+        depth:
+          type: integer
+          minimum: 1
+          maximum: 6
+    ContentList:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - type
+      - text
+      - children
+      - sourceSpan
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 128
+        type:
+          const: list
+        text:
+          const: ''
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentListItem'
+        sourceSpan:
+          description: Zero-based half-open source line range; derived table wrappers
+            may use [0,0] until precise spans land.
+          type: array
+          prefixItems:
+          - type: integer
+            minimum: 0
+          - type: integer
+            minimum: 0
+          items: false
+          minItems: 2
+          maxItems: 2
+    ContentOrderedList:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - type
+      - text
+      - children
+      - sourceSpan
+      - start
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 128
+        type:
+          const: orderedList
+        text:
+          const: ''
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentListItem'
+        sourceSpan:
+          description: Zero-based half-open source line range; derived table wrappers
+            may use [0,0] until precise spans land.
+          type: array
+          prefixItems:
+          - type: integer
+            minimum: 0
+          - type: integer
+            minimum: 0
+          items: false
+          minItems: 2
+          maxItems: 2
+        start:
+          type: integer
+          minimum: 0
+          maximum: 999999999
+    ContentQuote:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - type
+      - text
+      - children
+      - sourceSpan
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 128
+        type:
+          const: quote
+        text:
+          const: ''
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentDocumentBlock'
+        sourceSpan:
+          description: Zero-based half-open source line range; derived table wrappers
+            may use [0,0] until precise spans land.
+          type: array
+          prefixItems:
+          - type: integer
+            minimum: 0
+          - type: integer
+            minimum: 0
+          items: false
+          minItems: 2
+          maxItems: 2
+    ContentTable:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - type
+      - text
+      - children
+      - sourceSpan
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 128
+        type:
+          const: table
+        text:
+          const: ''
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentTableSection'
+        sourceSpan:
+          description: Zero-based half-open source line range; derived table wrappers
+            may use [0,0] until precise spans land.
+          type: array
+          prefixItems:
+          - type: integer
+            minimum: 0
+          - type: integer
+            minimum: 0
+          items: false
+          minItems: 2
+          maxItems: 2
+    ContentCode:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - type
+      - text
+      - children
+      - sourceSpan
+      - language
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 128
+        type:
+          const: code
+        text:
+          type: string
+          maxLength: 50000
+        children:
+          type: array
+          maxItems: 0
+          items: false
+        sourceSpan:
+          description: Zero-based half-open source line range; derived table wrappers
+            may use [0,0] until precise spans land.
+          type: array
+          prefixItems:
+          - type: integer
+            minimum: 0
+          - type: integer
+            minimum: 0
+          items: false
+          minItems: 2
+          maxItems: 2
+        language:
+          type: string
+          maxLength: 50000
+    ContentRule:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - type
+      - text
+      - children
+      - sourceSpan
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 128
+        type:
+          const: rule
+        text:
+          const: ''
+        children:
+          type: array
+          maxItems: 0
+          items: false
+        sourceSpan:
+          description: Zero-based half-open source line range; derived table wrappers
+            may use [0,0] until precise spans land.
+          type: array
+          prefixItems:
+          - type: integer
+            minimum: 0
+          - type: integer
+            minimum: 0
+          items: false
+          minItems: 2
+          maxItems: 2
+    ContentMedia:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - type
+      - text
+      - children
+      - sourceSpan
+      - attachmentId
+      - mediaType
+      - alt
+      - decorative
+      - caption
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 128
+        type:
+          const: media
+        text:
+          const: ''
+        children:
+          type: array
+          maxItems: 0
+          items: false
+        sourceSpan:
+          description: Zero-based half-open source line range; derived table wrappers
+            may use [0,0] until precise spans land.
+          type: array
+          prefixItems:
+          - type: integer
+            minimum: 0
+          - type: integer
+            minimum: 0
+          items: false
+          minItems: 2
+          maxItems: 2
+        attachmentId:
+          type: string
+          pattern: ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
+        mediaType:
+          enum:
+          - image
+          - video
+        alt:
+          type: string
+          maxLength: 1000
+        decorative:
+          type: boolean
+        caption:
+          type: string
+          maxLength: 500
+    ContentItem:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - type
+      - text
+      - children
+      - sourceSpan
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 128
+        type:
+          const: item
+        text:
+          const: ''
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentDocumentBlock'
+        sourceSpan:
+          description: Zero-based half-open source line range; derived table wrappers
+            may use [0,0] until precise spans land.
+          type: array
+          prefixItems:
+          - type: integer
+            minimum: 0
+          - type: integer
+            minimum: 0
+          items: false
+          minItems: 2
+          maxItems: 2
+    ContentTaskItem:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - type
+      - text
+      - children
+      - sourceSpan
+      - checked
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 128
+        type:
+          const: taskItem
+        text:
+          const: ''
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentDocumentBlock'
+        sourceSpan:
+          description: Zero-based half-open source line range; derived table wrappers
+            may use [0,0] until precise spans land.
+          type: array
+          prefixItems:
+          - type: integer
+            minimum: 0
+          - type: integer
+            minimum: 0
+          items: false
+          minItems: 2
+          maxItems: 2
+        checked:
+          type: boolean
+    ContentTableHead:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - type
+      - text
+      - children
+      - sourceSpan
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 128
+        type:
+          const: tableHead
+        text:
+          const: ''
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentRow'
+        sourceSpan:
+          description: Zero-based half-open source line range; derived table wrappers
+            may use [0,0] until precise spans land.
+          type: array
+          prefixItems:
+          - type: integer
+            minimum: 0
+          - type: integer
+            minimum: 0
+          items: false
+          minItems: 2
+          maxItems: 2
+    ContentTableBody:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - type
+      - text
+      - children
+      - sourceSpan
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 128
+        type:
+          const: tableBody
+        text:
+          const: ''
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentRow'
+        sourceSpan:
+          description: Zero-based half-open source line range; derived table wrappers
+            may use [0,0] until precise spans land.
+          type: array
+          prefixItems:
+          - type: integer
+            minimum: 0
+          - type: integer
+            minimum: 0
+          items: false
+          minItems: 2
+          maxItems: 2
+    ContentRow:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - type
+      - text
+      - children
+      - sourceSpan
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 128
+        type:
+          const: row
+        text:
+          const: ''
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentTableCell'
+        sourceSpan:
+          description: Zero-based half-open source line range; derived table wrappers
+            may use [0,0] until precise spans land.
+          type: array
+          prefixItems:
+          - type: integer
+            minimum: 0
+          - type: integer
+            minimum: 0
+          items: false
+          minItems: 2
+          maxItems: 2
+    ContentHeaderCell:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - type
+      - text
+      - children
+      - sourceSpan
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 128
+        type:
+          const: headerCell
+        text:
+          const: ''
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentInline'
+        sourceSpan:
+          description: Zero-based half-open source line range; derived table wrappers
+            may use [0,0] until precise spans land.
+          type: array
+          prefixItems:
+          - type: integer
+            minimum: 0
+          - type: integer
+            minimum: 0
+          items: false
+          minItems: 2
+          maxItems: 2
+    ContentCell:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - type
+      - text
+      - children
+      - sourceSpan
+      properties:
+        id:
+          type: string
+          minLength: 1
+          maxLength: 128
+        type:
+          const: cell
+        text:
+          const: ''
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentInline'
+        sourceSpan:
+          description: Zero-based half-open source line range; derived table wrappers
+            may use [0,0] until precise spans land.
+          type: array
+          prefixItems:
+          - type: integer
+            minimum: 0
+          - type: integer
+            minimum: 0
+          items: false
+          minItems: 2
+          maxItems: 2
+    Block:
+      oneOf:
+      - $ref: '#/components/schemas/ContentText'
+      - $ref: '#/components/schemas/ContentCodeInline'
+      - $ref: '#/components/schemas/ContentStrong'
+      - $ref: '#/components/schemas/ContentEmphasis'
+      - $ref: '#/components/schemas/ContentStrike'
+      - $ref: '#/components/schemas/ContentLink'
+      - $ref: '#/components/schemas/ContentSpan'
+      - $ref: '#/components/schemas/ContentParagraph'
+      - $ref: '#/components/schemas/ContentHeading'
+      - $ref: '#/components/schemas/ContentList'
+      - $ref: '#/components/schemas/ContentOrderedList'
+      - $ref: '#/components/schemas/ContentQuote'
+      - $ref: '#/components/schemas/ContentTable'
+      - $ref: '#/components/schemas/ContentCode'
+      - $ref: '#/components/schemas/ContentRule'
+      - $ref: '#/components/schemas/ContentMedia'
+      - $ref: '#/components/schemas/ContentItem'
+      - $ref: '#/components/schemas/ContentTaskItem'
+      - $ref: '#/components/schemas/ContentTableHead'
+      - $ref: '#/components/schemas/ContentTableBody'
+      - $ref: '#/components/schemas/ContentRow'
+      - $ref: '#/components/schemas/ContentHeaderCell'
+      - $ref: '#/components/schemas/ContentCell'
+    ContentInline:
+      oneOf:
+      - $ref: '#/components/schemas/ContentText'
+      - $ref: '#/components/schemas/ContentCodeInline'
+      - $ref: '#/components/schemas/ContentStrong'
+      - $ref: '#/components/schemas/ContentEmphasis'
+      - $ref: '#/components/schemas/ContentStrike'
+      - $ref: '#/components/schemas/ContentLink'
+      - $ref: '#/components/schemas/ContentSpan'
+    ContentLinkChild:
+      oneOf:
+      - $ref: '#/components/schemas/ContentText'
+      - $ref: '#/components/schemas/ContentCodeInline'
+      - $ref: '#/components/schemas/ContentStrong'
+      - $ref: '#/components/schemas/ContentEmphasis'
+      - $ref: '#/components/schemas/ContentStrike'
+      - $ref: '#/components/schemas/ContentSpan'
+    ContentDocumentBlock:
+      oneOf:
+      - $ref: '#/components/schemas/ContentParagraph'
+      - $ref: '#/components/schemas/ContentHeading'
+      - $ref: '#/components/schemas/ContentList'
+      - $ref: '#/components/schemas/ContentOrderedList'
+      - $ref: '#/components/schemas/ContentQuote'
+      - $ref: '#/components/schemas/ContentTable'
+      - $ref: '#/components/schemas/ContentCode'
+      - $ref: '#/components/schemas/ContentRule'
+      - $ref: '#/components/schemas/ContentMedia'
+    ContentListItem:
+      oneOf:
+      - $ref: '#/components/schemas/ContentItem'
+      - $ref: '#/components/schemas/ContentTaskItem'
+    ContentTableSection:
+      oneOf:
+      - $ref: '#/components/schemas/ContentTableHead'
+      - $ref: '#/components/schemas/ContentTableBody'
+    ContentTableCell:
+      oneOf:
+      - $ref: '#/components/schemas/ContentHeaderCell'
+      - $ref: '#/components/schemas/ContentCell'

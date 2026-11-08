@@ -1,0 +1,789 @@
+[
+  {
+    "id": "basic",
+    "source": "## A heading\n\nA **clear** statement with *emphasis*.",
+    "expect": "body heading rendered at h3 beneath page h1; strong and emphasis text preserved",
+    "canonical": {
+      "dialect": "stmts-md/1",
+      "blocks": [
+        {
+          "id": "b-9adcdb49cc82976c6d46-1",
+          "type": "heading",
+          "text": "",
+          "children": [
+            {
+              "id": "b-b744c9d89d11e38163cd-1",
+              "type": "text",
+              "text": "A heading",
+              "children": []
+            }
+          ],
+          "depth": 2,
+          "sourceSpan": [
+            0,
+            1
+          ]
+        },
+        {
+          "id": "b-c80514b51921abff65b2-1",
+          "type": "paragraph",
+          "text": "",
+          "children": [
+            {
+              "id": "b-9258f149bfcab37c0862-1",
+              "type": "text",
+              "text": "A ",
+              "children": []
+            },
+            {
+              "id": "b-495d1714039b4002e258-1",
+              "type": "strong",
+              "text": "",
+              "children": [
+                {
+                  "id": "b-40be9427702d4740a193-1",
+                  "type": "text",
+                  "text": "clear",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "b-82b073bdf2de967e51af-1",
+              "type": "text",
+              "text": " statement with ",
+              "children": []
+            },
+            {
+              "id": "b-f783a39e63a00e2365b4-1",
+              "type": "emphasis",
+              "text": "",
+              "children": [
+                {
+                  "id": "b-4ce17d2b4eaa65b8e4bd-1",
+                  "type": "text",
+                  "text": "emphasis",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "b-5ed2f327cb91d672b6bd-1",
+              "type": "text",
+              "text": ".",
+              "children": []
+            }
+          ],
+          "sourceSpan": [
+            2,
+            3
+          ]
+        }
+      ],
+      "plainText": "A heading A clear statement with emphasis .",
+      "excerpt": "A heading A clear statement with emphasis .",
+      "readingMinutes": 1,
+      "isShort": false,
+      "validationErrors": []
+    }
+  },
+  {
+    "id": "code",
+    "source": "```html\n<script>alert(1)</script>\n```",
+    "expect": "literal code, never executable",
+    "canonical": {
+      "dialect": "stmts-md/1",
+      "blocks": [
+        {
+          "id": "b-59bdf2a9eb2727c008b4-1",
+          "type": "code",
+          "text": "<script>alert(1)</script>\n",
+          "children": [],
+          "language": "html",
+          "sourceSpan": [
+            0,
+            3
+          ]
+        }
+      ],
+      "plainText": "",
+      "excerpt": "",
+      "readingMinutes": 1,
+      "isShort": false,
+      "validationErrors": []
+    }
+  },
+  {
+    "id": "raw-html",
+    "source": "<script>alert(1)</script>\n<img src=x onerror=alert(1)>",
+    "expect": "escaped literal text; no script or network request",
+    "canonical": {
+      "dialect": "stmts-md/1",
+      "blocks": [
+        {
+          "id": "b-a3e7d285e59e9f26a3af-1",
+          "type": "paragraph",
+          "text": "",
+          "children": [
+            {
+              "id": "b-132dc8d02edd5e0cbcf5-1",
+              "type": "text",
+              "text": "<script>alert(1)</script>",
+              "children": []
+            },
+            {
+              "id": "b-594e7de22135abb800d7-1",
+              "type": "text",
+              "text": "\n",
+              "children": []
+            },
+            {
+              "id": "b-619e5f6a39f201d95b68-1",
+              "type": "text",
+              "text": "<img src=x onerror=alert(1)>",
+              "children": []
+            }
+          ],
+          "sourceSpan": [
+            0,
+            2
+          ]
+        }
+      ],
+      "plainText": "<script>alert(1)</script> <img src=x onerror=alert(1)>",
+      "excerpt": "<script>alert(1)</script> <img src=x onerror=alert(1)>",
+      "readingMinutes": 1,
+      "isShort": true,
+      "validationErrors": []
+    }
+  },
+  {
+    "id": "url-scheme",
+    "source": "[open](javascript:alert(1))",
+    "expect": "no actionable unsafe link; validation error",
+    "canonical": {
+      "dialect": "stmts-md/1",
+      "blocks": [
+        {
+          "id": "b-80ac1e06f0fd9e72a220-1",
+          "type": "paragraph",
+          "text": "",
+          "children": [
+            {
+              "id": "b-15f327ba7b95a0e8a2e6-1",
+              "type": "text",
+              "text": "[open](javascript:alert(1))",
+              "children": []
+            }
+          ],
+          "sourceSpan": [
+            0,
+            1
+          ]
+        }
+      ],
+      "plainText": "[open](javascript:alert(1))",
+      "excerpt": "[open](javascript:alert(1))",
+      "readingMinutes": 1,
+      "isShort": true,
+      "validationErrors": [
+        "Unsafe link destination"
+      ]
+    }
+  },
+  {
+    "id": "table",
+    "source": "| Name | Value |\n| --- | --- |\n| Alpha | 1 |",
+    "expect": "header-associated two-column table in horizontally scrollable container",
+    "canonical": {
+      "dialect": "stmts-md/1",
+      "blocks": [
+        {
+          "id": "b-20fc454e8ff55f71368e-1",
+          "type": "table",
+          "text": "",
+          "children": [
+            {
+              "id": "b-11d5d916aceda2622feb-1",
+              "type": "tableHead",
+              "text": "",
+              "children": [
+                {
+                  "id": "b-bcf483c2032ba23023ca-1",
+                  "type": "row",
+                  "text": "",
+                  "children": [
+                    {
+                      "id": "b-4ca55bab471c09bab7ff-1",
+                      "type": "headerCell",
+                      "text": "",
+                      "children": [
+                        {
+                          "id": "b-50c62cc15c8911286dec-1",
+                          "type": "text",
+                          "text": "Name",
+                          "children": []
+                        }
+                      ],
+                      "sourceSpan": [
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "id": "b-fd62f96dfff8f055fe79-1",
+                      "type": "headerCell",
+                      "text": "",
+                      "children": [
+                        {
+                          "id": "b-98af7b534dd708cfd9ab-1",
+                          "type": "text",
+                          "text": "Value",
+                          "children": []
+                        }
+                      ],
+                      "sourceSpan": [
+                        0,
+                        0
+                      ]
+                    }
+                  ],
+                  "sourceSpan": [
+                    0,
+                    1
+                  ]
+                }
+              ],
+              "sourceSpan": [
+                0,
+                1
+              ]
+            },
+            {
+              "id": "b-cc852a4f2ebb6b805a12-1",
+              "type": "tableBody",
+              "text": "",
+              "children": [
+                {
+                  "id": "b-b4c037da2b68eaa1e32b-1",
+                  "type": "row",
+                  "text": "",
+                  "children": [
+                    {
+                      "id": "b-f76abf6936c96f6b382c-1",
+                      "type": "cell",
+                      "text": "",
+                      "children": [
+                        {
+                          "id": "b-5cb9ab99c94e550fa472-1",
+                          "type": "text",
+                          "text": "Alpha",
+                          "children": []
+                        }
+                      ],
+                      "sourceSpan": [
+                        0,
+                        0
+                      ]
+                    },
+                    {
+                      "id": "b-4acec350b46ff8f2d035-1",
+                      "type": "cell",
+                      "text": "",
+                      "children": [
+                        {
+                          "id": "b-855adaa9cfb2953dced0-1",
+                          "type": "text",
+                          "text": "1",
+                          "children": []
+                        }
+                      ],
+                      "sourceSpan": [
+                        0,
+                        0
+                      ]
+                    }
+                  ],
+                  "sourceSpan": [
+                    2,
+                    3
+                  ]
+                }
+              ],
+              "sourceSpan": [
+                2,
+                3
+              ]
+            }
+          ],
+          "sourceSpan": [
+            0,
+            3
+          ]
+        }
+      ],
+      "plainText": "Name Value Alpha 1",
+      "excerpt": "Name Value Alpha 1",
+      "readingMinutes": 1,
+      "isShort": false,
+      "validationErrors": []
+    }
+  },
+  {
+    "id": "media",
+    "source": "![Green hills](stmts-media:11111111-1111-4111-8111-111111111111)",
+    "expect": "authorized attachment resolution; Green hills is alt; missing ID blocks publish",
+    "canonical": {
+      "dialect": "stmts-md/1",
+      "blocks": [
+        {
+          "id": "b-0460971636bd92a0a678-1",
+          "type": "paragraph",
+          "text": "",
+          "children": [
+            {
+              "id": "b-7451ce9aaeab195ccc99-1",
+              "type": "text",
+              "text": "![Green hills](stmts-media:11111111-1111-4111-8111-111111111111)",
+              "children": []
+            }
+          ],
+          "sourceSpan": [
+            0,
+            1
+          ]
+        }
+      ],
+      "plainText": "![Green hills](stmts-media:11111111-1111-4111-8111-111111111111)",
+      "excerpt": "![Green hills](stmts-media:11111111-1111-4111-8111-111111111111)",
+      "readingMinutes": 1,
+      "isShort": true,
+      "validationErrors": [
+        "Image requires an authorized ready attachment"
+      ]
+    }
+  },
+  {
+    "id": "tasks",
+    "source": "- [x] Read\n- [ ] Respond\n\n~~old~~",
+    "expect": "noninteractive checked and unchecked task states; strikethrough",
+    "canonical": {
+      "dialect": "stmts-md/1",
+      "blocks": [
+        {
+          "id": "b-e1d4515eeaecc4092176-1",
+          "type": "list",
+          "text": "",
+          "children": [
+            {
+              "id": "b-c1e0f97c289db4139332-1",
+              "type": "taskItem",
+              "text": "",
+              "children": [
+                {
+                  "id": "b-42919bd4dc76da517a55-1",
+                  "type": "paragraph",
+                  "text": "",
+                  "children": [
+                    {
+                      "id": "b-7bb7ce8b78468b1e1090-1",
+                      "type": "text",
+                      "text": " Read",
+                      "children": []
+                    }
+                  ],
+                  "sourceSpan": [
+                    0,
+                    1
+                  ]
+                }
+              ],
+              "sourceSpan": [
+                0,
+                1
+              ],
+              "checked": true
+            },
+            {
+              "id": "b-823a5aae33988df65efe-1",
+              "type": "taskItem",
+              "text": "",
+              "children": [
+                {
+                  "id": "b-317dd820d85b3648c6b7-1",
+                  "type": "paragraph",
+                  "text": "",
+                  "children": [
+                    {
+                      "id": "b-ed19b58e458b5a4bfa14-1",
+                      "type": "text",
+                      "text": " Respond",
+                      "children": []
+                    }
+                  ],
+                  "sourceSpan": [
+                    1,
+                    2
+                  ]
+                }
+              ],
+              "sourceSpan": [
+                1,
+                3
+              ],
+              "checked": false
+            }
+          ],
+          "sourceSpan": [
+            0,
+            3
+          ]
+        },
+        {
+          "id": "b-5f936e0b5dd968901b20-1",
+          "type": "paragraph",
+          "text": "",
+          "children": [
+            {
+              "id": "b-7f2674ce8ba8f37573fe-1",
+              "type": "strike",
+              "text": "",
+              "children": [
+                {
+                  "id": "b-4aaa7b334b14e379b946-1",
+                  "type": "text",
+                  "text": "old",
+                  "children": []
+                }
+              ]
+            }
+          ],
+          "sourceSpan": [
+            3,
+            4
+          ]
+        }
+      ],
+      "plainText": "Read Respond old",
+      "excerpt": "Read Respond old",
+      "readingMinutes": 1,
+      "isShort": false,
+      "validationErrors": []
+    },
+    "knownGap": "TASK-002: parser currently drops task checkbox state; preserve checked/unchecked taskItem variants in task 2."
+  },
+  {
+    "id": "rtl",
+    "source": "## مرحبًا\n\nرأي قصير مع `const value = 1` و **نص**.",
+    "expect": "natural RTL prose; code LTR; emphasis preserved",
+    "canonical": {
+      "dialect": "stmts-md/1",
+      "blocks": [
+        {
+          "id": "b-2bc576cee9862aae8f24-1",
+          "type": "heading",
+          "text": "",
+          "children": [
+            {
+              "id": "b-4aa5e3e0c4d819738b6d-1",
+              "type": "text",
+              "text": "مرحبًا",
+              "children": []
+            }
+          ],
+          "depth": 2,
+          "sourceSpan": [
+            0,
+            1
+          ]
+        },
+        {
+          "id": "b-c2cd4db2c5382113fc29-1",
+          "type": "paragraph",
+          "text": "",
+          "children": [
+            {
+              "id": "b-c97bfc58e83172271782-1",
+              "type": "text",
+              "text": "رأي قصير مع ",
+              "children": []
+            },
+            {
+              "id": "b-da4f73f86dca41113832-1",
+              "type": "codeInline",
+              "text": "const value = 1",
+              "children": []
+            },
+            {
+              "id": "b-810b094643ff60d26c87-1",
+              "type": "text",
+              "text": " و ",
+              "children": []
+            },
+            {
+              "id": "b-b968253851ef7fade31e-1",
+              "type": "strong",
+              "text": "",
+              "children": [
+                {
+                  "id": "b-db610f2ee045a458ecf3-1",
+                  "type": "text",
+                  "text": "نص",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "b-5ed2f327cb91d672b6bd-1",
+              "type": "text",
+              "text": ".",
+              "children": []
+            }
+          ],
+          "sourceSpan": [
+            2,
+            3
+          ]
+        }
+      ],
+      "plainText": "مرحبًا رأي قصير مع و نص .",
+      "excerpt": "مرحبًا رأي قصير مع و نص .",
+      "readingMinutes": 1,
+      "isShort": false,
+      "validationErrors": []
+    }
+  },
+  {
+    "id": "nested",
+    "source": "> A quiet idea.\n\n1. First\n   - Nested\n2. Second",
+    "expect": "quote, ordered list and nested unordered list preserved",
+    "canonical": {
+      "dialect": "stmts-md/1",
+      "blocks": [
+        {
+          "id": "b-4c157c3688706e2e6db2-1",
+          "type": "quote",
+          "text": "",
+          "children": [
+            {
+              "id": "b-1aa9106f1ab9311f8fb8-1",
+              "type": "paragraph",
+              "text": "",
+              "children": [
+                {
+                  "id": "b-4749c83ef3891eab151a-1",
+                  "type": "text",
+                  "text": "A quiet idea.",
+                  "children": []
+                }
+              ],
+              "sourceSpan": [
+                0,
+                1
+              ]
+            }
+          ],
+          "sourceSpan": [
+            0,
+            1
+          ]
+        },
+        {
+          "id": "b-9195cf82a1997c807e2c-1",
+          "type": "orderedList",
+          "text": "",
+          "children": [
+            {
+              "id": "b-deabffcce8d80f76001c-1",
+              "type": "item",
+              "text": "",
+              "children": [
+                {
+                  "id": "b-c981b791e23e704cbc76-1",
+                  "type": "paragraph",
+                  "text": "",
+                  "children": [
+                    {
+                      "id": "b-9bc208604925ee54fa0a-1",
+                      "type": "text",
+                      "text": "First",
+                      "children": []
+                    }
+                  ],
+                  "sourceSpan": [
+                    2,
+                    3
+                  ]
+                },
+                {
+                  "id": "b-c12ecd42c49320db1b71-1",
+                  "type": "list",
+                  "text": "",
+                  "children": [
+                    {
+                      "id": "b-84304cc23c1d891b05bb-1",
+                      "type": "item",
+                      "text": "",
+                      "children": [
+                        {
+                          "id": "b-2ae30fc41a810e305fb1-1",
+                          "type": "paragraph",
+                          "text": "",
+                          "children": [
+                            {
+                              "id": "b-3b1e5b6494827abf5d90-1",
+                              "type": "text",
+                              "text": "Nested",
+                              "children": []
+                            }
+                          ],
+                          "sourceSpan": [
+                            3,
+                            4
+                          ]
+                        }
+                      ],
+                      "sourceSpan": [
+                        3,
+                        4
+                      ]
+                    }
+                  ],
+                  "sourceSpan": [
+                    3,
+                    4
+                  ]
+                }
+              ],
+              "sourceSpan": [
+                2,
+                4
+              ]
+            },
+            {
+              "id": "b-c362fa9e34bb2c8d8629-1",
+              "type": "item",
+              "text": "",
+              "children": [
+                {
+                  "id": "b-49c5c8b85f443a43065a-1",
+                  "type": "paragraph",
+                  "text": "",
+                  "children": [
+                    {
+                      "id": "b-8cdbe85e1abb851b0977-1",
+                      "type": "text",
+                      "text": "Second",
+                      "children": []
+                    }
+                  ],
+                  "sourceSpan": [
+                    4,
+                    5
+                  ]
+                }
+              ],
+              "sourceSpan": [
+                4,
+                5
+              ]
+            }
+          ],
+          "start": 1,
+          "sourceSpan": [
+            2,
+            5
+          ]
+        }
+      ],
+      "plainText": "A quiet idea. First Nested Second",
+      "excerpt": "A quiet idea. First Nested Second",
+      "readingMinutes": 1,
+      "isShort": false,
+      "validationErrors": []
+    }
+  },
+  {
+    "id": "external-image",
+    "source": "![track](https://example.invalid/track.png)",
+    "expect": "no external fetch; readable source plus import affordance",
+    "canonical": {
+      "dialect": "stmts-md/1",
+      "blocks": [
+        {
+          "id": "b-83ccc8469a3b05507e7a-1",
+          "type": "paragraph",
+          "text": "",
+          "children": [
+            {
+              "id": "b-8516730d89d525609539-1",
+              "type": "text",
+              "text": "![track](https://example.invalid/track.png)",
+              "children": []
+            }
+          ],
+          "sourceSpan": [
+            0,
+            1
+          ]
+        }
+      ],
+      "plainText": "![track](https://example.invalid/track.png)",
+      "excerpt": "![track](https://example.invalid/track.png)",
+      "readingMinutes": 1,
+      "isShort": true,
+      "validationErrors": [
+        "Image requires an authorized ready attachment"
+      ]
+    }
+  },
+  {
+    "id": "unicode",
+    "source": "A family 👨‍👩‍👧‍👦 and café.\n\n你好，世界。",
+    "expect": "no broken surrogate/grapheme rendering; code-point limits enforced consistently",
+    "canonical": {
+      "dialect": "stmts-md/1",
+      "blocks": [
+        {
+          "id": "b-43a8ded86ac188a0eabd-1",
+          "type": "paragraph",
+          "text": "",
+          "children": [
+            {
+              "id": "b-4084d163881e44b5ab3e-1",
+              "type": "text",
+              "text": "A family 👨‍👩‍👧‍👦 and café.",
+              "children": []
+            }
+          ],
+          "sourceSpan": [
+            0,
+            1
+          ]
+        },
+        {
+          "id": "b-096f36064f6b089bccfd-1",
+          "type": "paragraph",
+          "text": "",
+          "children": [
+            {
+              "id": "b-6d381b26b2e628c1ad5d-1",
+              "type": "text",
+              "text": "你好，世界。",
+              "children": []
+            }
+          ],
+          "sourceSpan": [
+            2,
+            3
+          ]
+        }
+      ],
+      "plainText": "A family 👨‍👩‍👧‍👦 and café. 你好，世界。",
+      "excerpt": "A family 👨‍👩‍👧‍👦 and café. 你好，世界。",
+      "readingMinutes": 1,
+      "isShort": true,
+      "validationErrors": []
+    }
+  }
+]
