@@ -80,8 +80,8 @@
           ]
         }
       ],
-      "plainText": "A heading A clear statement with emphasis .",
-      "excerpt": "A heading A clear statement with emphasis .",
+      "plainText": "A heading A clear statement with emphasis.",
+      "excerpt": "A heading A clear statement with emphasis.",
       "readingMinutes": 1,
       "isShort": false,
       "validationErrors": []
@@ -227,7 +227,7 @@
                       ],
                       "sourceSpan": [
                         0,
-                        0
+                        1
                       ]
                     },
                     {
@@ -244,7 +244,7 @@
                       ],
                       "sourceSpan": [
                         0,
-                        0
+                        1
                       ]
                     }
                   ],
@@ -282,8 +282,8 @@
                         }
                       ],
                       "sourceSpan": [
-                        0,
-                        0
+                        2,
+                        3
                       ]
                     },
                     {
@@ -299,8 +299,8 @@
                         }
                       ],
                       "sourceSpan": [
-                        0,
-                        0
+                        2,
+                        3
                       ]
                     }
                   ],
@@ -388,7 +388,7 @@
                     {
                       "id": "b-7bb7ce8b78468b1e1090-1",
                       "type": "text",
-                      "text": " Read",
+                      "text": "Read",
                       "children": []
                     }
                   ],
@@ -417,7 +417,7 @@
                     {
                       "id": "b-ed19b58e458b5a4bfa14-1",
                       "type": "text",
-                      "text": " Respond",
+                      "text": "Respond",
                       "children": []
                     }
                   ],
@@ -469,8 +469,7 @@
       "readingMinutes": 1,
       "isShort": false,
       "validationErrors": []
-    },
-    "knownGap": "TASK-002: parser currently drops task checkbox state; preserve checked/unchecked taskItem variants in task 2."
+    }
   },
   {
     "id": "rtl",
@@ -546,8 +545,8 @@
           ]
         }
       ],
-      "plainText": "مرحبًا رأي قصير مع و نص .",
-      "excerpt": "مرحبًا رأي قصير مع و نص .",
+      "plainText": "مرحبًا رأي قصير مع و نص.",
+      "excerpt": "مرحبًا رأي قصير مع و نص.",
       "readingMinutes": 1,
       "isShort": false,
       "validationErrors": []

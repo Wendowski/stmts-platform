@@ -282,7 +282,7 @@
           }
         },
         "sourceSpan": {
-          "description": "Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land.",
+          "description": "Zero-based logical line range [startLine,endLine), end exclusive, in the LF-normalized parsing view. Nonempty accurate spans only; no unknown placeholders.",
           "type": "array",
           "prefixItems": [
             {
@@ -291,7 +291,7 @@
             },
             {
               "type": "integer",
-              "minimum": 0
+              "minimum": 1
             }
           ],
           "items": false,
@@ -330,7 +330,7 @@
           }
         },
         "sourceSpan": {
-          "description": "Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land.",
+          "description": "Zero-based logical line range [startLine,endLine), end exclusive, in the LF-normalized parsing view. Nonempty accurate spans only; no unknown placeholders.",
           "type": "array",
           "prefixItems": [
             {
@@ -339,7 +339,7 @@
             },
             {
               "type": "integer",
-              "minimum": 0
+              "minimum": 1
             }
           ],
           "items": false,
@@ -382,7 +382,7 @@
           }
         },
         "sourceSpan": {
-          "description": "Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land.",
+          "description": "Zero-based logical line range [startLine,endLine), end exclusive, in the LF-normalized parsing view. Nonempty accurate spans only; no unknown placeholders.",
           "type": "array",
           "prefixItems": [
             {
@@ -391,7 +391,7 @@
             },
             {
               "type": "integer",
-              "minimum": 0
+              "minimum": 1
             }
           ],
           "items": false,
@@ -430,7 +430,7 @@
           }
         },
         "sourceSpan": {
-          "description": "Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land.",
+          "description": "Zero-based logical line range [startLine,endLine), end exclusive, in the LF-normalized parsing view. Nonempty accurate spans only; no unknown placeholders.",
           "type": "array",
           "prefixItems": [
             {
@@ -439,7 +439,7 @@
             },
             {
               "type": "integer",
-              "minimum": 0
+              "minimum": 1
             }
           ],
           "items": false,
@@ -482,7 +482,7 @@
           }
         },
         "sourceSpan": {
-          "description": "Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land.",
+          "description": "Zero-based logical line range [startLine,endLine), end exclusive, in the LF-normalized parsing view. Nonempty accurate spans only; no unknown placeholders.",
           "type": "array",
           "prefixItems": [
             {
@@ -491,7 +491,7 @@
             },
             {
               "type": "integer",
-              "minimum": 0
+              "minimum": 1
             }
           ],
           "items": false,
@@ -529,7 +529,7 @@
           }
         },
         "sourceSpan": {
-          "description": "Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land.",
+          "description": "Zero-based logical line range [startLine,endLine), end exclusive, in the LF-normalized parsing view. Nonempty accurate spans only; no unknown placeholders.",
           "type": "array",
           "prefixItems": [
             {
@@ -538,7 +538,7 @@
             },
             {
               "type": "integer",
-              "minimum": 0
+              "minimum": 1
             }
           ],
           "items": false,
@@ -577,7 +577,7 @@
           "items": false
         },
         "sourceSpan": {
-          "description": "Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land.",
+          "description": "Zero-based logical line range [startLine,endLine), end exclusive, in the LF-normalized parsing view. Nonempty accurate spans only; no unknown placeholders.",
           "type": "array",
           "prefixItems": [
             {
@@ -586,7 +586,7 @@
             },
             {
               "type": "integer",
-              "minimum": 0
+              "minimum": 1
             }
           ],
           "items": false,
@@ -627,7 +627,7 @@
           "items": false
         },
         "sourceSpan": {
-          "description": "Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land.",
+          "description": "Zero-based logical line range [startLine,endLine), end exclusive, in the LF-normalized parsing view. Nonempty accurate spans only; no unknown placeholders.",
           "type": "array",
           "prefixItems": [
             {
@@ -636,7 +636,7 @@
             },
             {
               "type": "integer",
-              "minimum": 0
+              "minimum": 1
             }
           ],
           "items": false,
@@ -678,7 +678,7 @@
           "items": false
         },
         "sourceSpan": {
-          "description": "Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land.",
+          "description": "Zero-based logical line range [startLine,endLine), end exclusive, in the LF-normalized parsing view. Nonempty accurate spans only; no unknown placeholders.",
           "type": "array",
           "prefixItems": [
             {
@@ -687,7 +687,7 @@
             },
             {
               "type": "integer",
-              "minimum": 0
+              "minimum": 1
             }
           ],
           "items": false,
@@ -746,7 +746,7 @@
           }
         },
         "sourceSpan": {
-          "description": "Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land.",
+          "description": "Zero-based logical line range [startLine,endLine), end exclusive, in the LF-normalized parsing view. Nonempty accurate spans only; no unknown placeholders.",
           "type": "array",
           "prefixItems": [
             {
@@ -755,7 +755,7 @@
             },
             {
               "type": "integer",
-              "minimum": 0
+              "minimum": 1
             }
           ],
           "items": false,
@@ -794,7 +794,7 @@
           }
         },
         "sourceSpan": {
-          "description": "Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land.",
+          "description": "Zero-based logical line range [startLine,endLine), end exclusive, in the LF-normalized parsing view. Nonempty accurate spans only; no unknown placeholders.",
           "type": "array",
           "prefixItems": [
             {
@@ -803,7 +803,7 @@
             },
             {
               "type": "integer",
-              "minimum": 0
+              "minimum": 1
             }
           ],
           "items": false,
@@ -844,7 +844,7 @@
           }
         },
         "sourceSpan": {
-          "description": "Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land.",
+          "description": "Zero-based logical line range [startLine,endLine), end exclusive, in the LF-normalized parsing view. Nonempty accurate spans only; no unknown placeholders.",
           "type": "array",
           "prefixItems": [
             {
@@ -853,7 +853,7 @@
             },
             {
               "type": "integer",
-              "minimum": 0
+              "minimum": 1
             }
           ],
           "items": false,
@@ -891,7 +891,7 @@
           }
         },
         "sourceSpan": {
-          "description": "Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land.",
+          "description": "Zero-based logical line range [startLine,endLine), end exclusive, in the LF-normalized parsing view. Nonempty accurate spans only; no unknown placeholders.",
           "type": "array",
           "prefixItems": [
             {
@@ -900,7 +900,7 @@
             },
             {
               "type": "integer",
-              "minimum": 0
+              "minimum": 1
             }
           ],
           "items": false,
@@ -938,7 +938,7 @@
           }
         },
         "sourceSpan": {
-          "description": "Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land.",
+          "description": "Zero-based logical line range [startLine,endLine), end exclusive, in the LF-normalized parsing view. Nonempty accurate spans only; no unknown placeholders.",
           "type": "array",
           "prefixItems": [
             {
@@ -947,7 +947,7 @@
             },
             {
               "type": "integer",
-              "minimum": 0
+              "minimum": 1
             }
           ],
           "items": false,
@@ -985,7 +985,7 @@
           }
         },
         "sourceSpan": {
-          "description": "Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land.",
+          "description": "Zero-based logical line range [startLine,endLine), end exclusive, in the LF-normalized parsing view. Nonempty accurate spans only; no unknown placeholders.",
           "type": "array",
           "prefixItems": [
             {
@@ -994,7 +994,7 @@
             },
             {
               "type": "integer",
-              "minimum": 0
+              "minimum": 1
             }
           ],
           "items": false,
@@ -1032,7 +1032,7 @@
           }
         },
         "sourceSpan": {
-          "description": "Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land.",
+          "description": "Zero-based logical line range [startLine,endLine), end exclusive, in the LF-normalized parsing view. Nonempty accurate spans only; no unknown placeholders.",
           "type": "array",
           "prefixItems": [
             {
@@ -1041,7 +1041,7 @@
             },
             {
               "type": "integer",
-              "minimum": 0
+              "minimum": 1
             }
           ],
           "items": false,

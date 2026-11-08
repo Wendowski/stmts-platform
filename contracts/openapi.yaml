@@ -80,6 +80,31 @@ components:
           type: string
         requestId:
           type: string
+        fieldErrors:
+          type: object
+          additionalProperties: false
+          properties:
+            body:
+              type: array
+              items:
+                type: object
+                additionalProperties: false
+                required:
+                - message
+                - sourceSpan
+                properties:
+                  message:
+                    type: string
+                  sourceSpan:
+                    type: array
+                    prefixItems:
+                    - type: integer
+                      minimum: 0
+                    - type: integer
+                      minimum: 0
+                    items: false
+                    minItems: 2
+                    maxItems: 2
     Content:
       type: object
       additionalProperties: false
@@ -291,14 +316,15 @@ components:
           items:
             $ref: '#/components/schemas/ContentInline'
         sourceSpan:
-          description: Zero-based half-open source line range; derived table wrappers
-            may use [0,0] until precise spans land.
+          description: Zero-based logical line range [startLine,endLine), end exclusive,
+            in the LF-normalized parsing view. Nonempty accurate spans only; no unknown
+            placeholders.
           type: array
           prefixItems:
           - type: integer
             minimum: 0
           - type: integer
-            minimum: 0
+            minimum: 1
           items: false
           minItems: 2
           maxItems: 2
@@ -326,14 +352,15 @@ components:
           items:
             $ref: '#/components/schemas/ContentInline'
         sourceSpan:
-          description: Zero-based half-open source line range; derived table wrappers
-            may use [0,0] until precise spans land.
+          description: Zero-based logical line range [startLine,endLine), end exclusive,
+            in the LF-normalized parsing view. Nonempty accurate spans only; no unknown
+            placeholders.
           type: array
           prefixItems:
           - type: integer
             minimum: 0
           - type: integer
-            minimum: 0
+            minimum: 1
           items: false
           minItems: 2
           maxItems: 2
@@ -364,14 +391,15 @@ components:
           items:
             $ref: '#/components/schemas/ContentListItem'
         sourceSpan:
-          description: Zero-based half-open source line range; derived table wrappers
-            may use [0,0] until precise spans land.
+          description: Zero-based logical line range [startLine,endLine), end exclusive,
+            in the LF-normalized parsing view. Nonempty accurate spans only; no unknown
+            placeholders.
           type: array
           prefixItems:
           - type: integer
             minimum: 0
           - type: integer
-            minimum: 0
+            minimum: 1
           items: false
           minItems: 2
           maxItems: 2
@@ -399,14 +427,15 @@ components:
           items:
             $ref: '#/components/schemas/ContentListItem'
         sourceSpan:
-          description: Zero-based half-open source line range; derived table wrappers
-            may use [0,0] until precise spans land.
+          description: Zero-based logical line range [startLine,endLine), end exclusive,
+            in the LF-normalized parsing view. Nonempty accurate spans only; no unknown
+            placeholders.
           type: array
           prefixItems:
           - type: integer
             minimum: 0
           - type: integer
-            minimum: 0
+            minimum: 1
           items: false
           minItems: 2
           maxItems: 2
@@ -437,14 +466,15 @@ components:
           items:
             $ref: '#/components/schemas/ContentDocumentBlock'
         sourceSpan:
-          description: Zero-based half-open source line range; derived table wrappers
-            may use [0,0] until precise spans land.
+          description: Zero-based logical line range [startLine,endLine), end exclusive,
+            in the LF-normalized parsing view. Nonempty accurate spans only; no unknown
+            placeholders.
           type: array
           prefixItems:
           - type: integer
             minimum: 0
           - type: integer
-            minimum: 0
+            minimum: 1
           items: false
           minItems: 2
           maxItems: 2
@@ -471,14 +501,15 @@ components:
           items:
             $ref: '#/components/schemas/ContentTableSection'
         sourceSpan:
-          description: Zero-based half-open source line range; derived table wrappers
-            may use [0,0] until precise spans land.
+          description: Zero-based logical line range [startLine,endLine), end exclusive,
+            in the LF-normalized parsing view. Nonempty accurate spans only; no unknown
+            placeholders.
           type: array
           prefixItems:
           - type: integer
             minimum: 0
           - type: integer
-            minimum: 0
+            minimum: 1
           items: false
           minItems: 2
           maxItems: 2
@@ -507,14 +538,15 @@ components:
           maxItems: 0
           items: false
         sourceSpan:
-          description: Zero-based half-open source line range; derived table wrappers
-            may use [0,0] until precise spans land.
+          description: Zero-based logical line range [startLine,endLine), end exclusive,
+            in the LF-normalized parsing view. Nonempty accurate spans only; no unknown
+            placeholders.
           type: array
           prefixItems:
           - type: integer
             minimum: 0
           - type: integer
-            minimum: 0
+            minimum: 1
           items: false
           minItems: 2
           maxItems: 2
@@ -544,14 +576,15 @@ components:
           maxItems: 0
           items: false
         sourceSpan:
-          description: Zero-based half-open source line range; derived table wrappers
-            may use [0,0] until precise spans land.
+          description: Zero-based logical line range [startLine,endLine), end exclusive,
+            in the LF-normalized parsing view. Nonempty accurate spans only; no unknown
+            placeholders.
           type: array
           prefixItems:
           - type: integer
             minimum: 0
           - type: integer
-            minimum: 0
+            minimum: 1
           items: false
           minItems: 2
           maxItems: 2
@@ -583,14 +616,15 @@ components:
           maxItems: 0
           items: false
         sourceSpan:
-          description: Zero-based half-open source line range; derived table wrappers
-            may use [0,0] until precise spans land.
+          description: Zero-based logical line range [startLine,endLine), end exclusive,
+            in the LF-normalized parsing view. Nonempty accurate spans only; no unknown
+            placeholders.
           type: array
           prefixItems:
           - type: integer
             minimum: 0
           - type: integer
-            minimum: 0
+            minimum: 1
           items: false
           minItems: 2
           maxItems: 2
@@ -632,14 +666,15 @@ components:
           items:
             $ref: '#/components/schemas/ContentDocumentBlock'
         sourceSpan:
-          description: Zero-based half-open source line range; derived table wrappers
-            may use [0,0] until precise spans land.
+          description: Zero-based logical line range [startLine,endLine), end exclusive,
+            in the LF-normalized parsing view. Nonempty accurate spans only; no unknown
+            placeholders.
           type: array
           prefixItems:
           - type: integer
             minimum: 0
           - type: integer
-            minimum: 0
+            minimum: 1
           items: false
           minItems: 2
           maxItems: 2
@@ -667,14 +702,15 @@ components:
           items:
             $ref: '#/components/schemas/ContentDocumentBlock'
         sourceSpan:
-          description: Zero-based half-open source line range; derived table wrappers
-            may use [0,0] until precise spans land.
+          description: Zero-based logical line range [startLine,endLine), end exclusive,
+            in the LF-normalized parsing view. Nonempty accurate spans only; no unknown
+            placeholders.
           type: array
           prefixItems:
           - type: integer
             minimum: 0
           - type: integer
-            minimum: 0
+            minimum: 1
           items: false
           minItems: 2
           maxItems: 2
@@ -703,14 +739,15 @@ components:
           items:
             $ref: '#/components/schemas/ContentRow'
         sourceSpan:
-          description: Zero-based half-open source line range; derived table wrappers
-            may use [0,0] until precise spans land.
+          description: Zero-based logical line range [startLine,endLine), end exclusive,
+            in the LF-normalized parsing view. Nonempty accurate spans only; no unknown
+            placeholders.
           type: array
           prefixItems:
           - type: integer
             minimum: 0
           - type: integer
-            minimum: 0
+            minimum: 1
           items: false
           minItems: 2
           maxItems: 2
@@ -737,14 +774,15 @@ components:
           items:
             $ref: '#/components/schemas/ContentRow'
         sourceSpan:
-          description: Zero-based half-open source line range; derived table wrappers
-            may use [0,0] until precise spans land.
+          description: Zero-based logical line range [startLine,endLine), end exclusive,
+            in the LF-normalized parsing view. Nonempty accurate spans only; no unknown
+            placeholders.
           type: array
           prefixItems:
           - type: integer
             minimum: 0
           - type: integer
-            minimum: 0
+            minimum: 1
           items: false
           minItems: 2
           maxItems: 2
@@ -771,14 +809,15 @@ components:
           items:
             $ref: '#/components/schemas/ContentTableCell'
         sourceSpan:
-          description: Zero-based half-open source line range; derived table wrappers
-            may use [0,0] until precise spans land.
+          description: Zero-based logical line range [startLine,endLine), end exclusive,
+            in the LF-normalized parsing view. Nonempty accurate spans only; no unknown
+            placeholders.
           type: array
           prefixItems:
           - type: integer
             minimum: 0
           - type: integer
-            minimum: 0
+            minimum: 1
           items: false
           minItems: 2
           maxItems: 2
@@ -805,14 +844,15 @@ components:
           items:
             $ref: '#/components/schemas/ContentInline'
         sourceSpan:
-          description: Zero-based half-open source line range; derived table wrappers
-            may use [0,0] until precise spans land.
+          description: Zero-based logical line range [startLine,endLine), end exclusive,
+            in the LF-normalized parsing view. Nonempty accurate spans only; no unknown
+            placeholders.
           type: array
           prefixItems:
           - type: integer
             minimum: 0
           - type: integer
-            minimum: 0
+            minimum: 1
           items: false
           minItems: 2
           maxItems: 2
@@ -839,14 +879,15 @@ components:
           items:
             $ref: '#/components/schemas/ContentInline'
         sourceSpan:
-          description: Zero-based half-open source line range; derived table wrappers
-            may use [0,0] until precise spans land.
+          description: Zero-based logical line range [startLine,endLine), end exclusive,
+            in the LF-normalized parsing view. Nonempty accurate spans only; no unknown
+            placeholders.
           type: array
           prefixItems:
           - type: integer
             minimum: 0
           - type: integer
-            minimum: 0
+            minimum: 1
           items: false
           minItems: 2
           maxItems: 2

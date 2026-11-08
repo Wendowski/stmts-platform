@@ -7,3 +7,6 @@ Reconciliation uses bounded sibling alignment with unique semantic anchors and c
 The parser enforces product block/depth/source limits and separate defensive total-node, inline-depth and elapsed-time budgets. A deployment worker boundary provides hard memory/wall-time isolation; it is not falsely claimed to exist in the current in-process fixture endpoint. The adapter exposes structured 422 errors; transport byte caps belong to ingress.
 
 Attachments are resolved only through an injected server-trusted resolver plus a manifest. Read-only tests supply resolvers; no upload/fetch endpoint is introduced. Title-aware summaries derive visible text from the canonical tree and exclude code from reading-time words. Grapheme boundaries are handled with pinned `regex` Unicode \X support.
+
+
+Implementation note: shared expectations now correct task marker whitespace, punctuation spacing and table-cell spans. Media placements carry token-recorded source line ranges; split paragraph ranges are computed from their original inline source segments. Unreferenced manifest attachments are validated but reserved for the separate attachment area. The optional isolated worker is Linux-tested and deliberately not presented as a live production service.

@@ -36,16 +36,6 @@ def test_shared_expected_canonical_documents_are_valid(case):
 def test_parser_matches_shared_expectations(case):
     actual = normalize(parse(case['source']))
     expected = normalize(case['canonical'])
-    if case.get('knownGap'):
-        # Only the loss of checkbox state is an accepted gap; other drift must fail.
-        if actual == expected:
-            pytest.fail('Known gap is fixed: remove its marker and require the passing case')
-        legacy = deepcopy(expected)
-        for item in legacy['blocks'][0]['children']:
-            item['type'] = 'item'
-            item.pop('checked')
-        assert actual == legacy
-        pytest.xfail(case['knownGap'])
     assert actual == expected
 
 
@@ -125,3 +115,22 @@ def test_shared_cases_cover_the_unchanged_designer_corpus():
     assert [(case['id'], case['source'], case['expect']) for case in CASES] == [
         (case['id'], case['source'], case['expect']) for case in sources
     ]
+
+
+@pytest.mark.parametrize('case', CASES, ids=lambda case: case['id'])
+def test_shared_fixture_logical_spans(case):
+    def spans(nodes):
+        result = []
+        for node in nodes:
+            if 'sourceSpan' in node:
+                assert node['sourceSpan'][0] < node['sourceSpan'][1]
+                result.append((node['type'], node['sourceSpan']))
+            result.extend(spans(node['children']))
+        return result
+    assert spans(parse(case['source'])['blocks']) == spans(case['canonical']['blocks'])
+
+
+def test_unknown_zero_span_placeholder_is_rejected():
+    doc = deepcopy(CASES[0]['canonical'])
+    doc['blocks'][0]['sourceSpan'] = [0, 0]
+    assert list(VALIDATOR.iter_errors(doc))

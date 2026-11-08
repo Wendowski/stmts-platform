@@ -3,6 +3,7 @@ from pathlib import Path
 import pytest
 from jsonschema import validate
 from content.parser import parse, safe_url, ContentError
+from content.identity import PreviousTree
 ROOT=Path(__file__).resolve().parents[2]
 def walk(nodes):
     for n in nodes:
@@ -26,7 +27,9 @@ def test_unicode_limit():
     assert parse('😀'*500)['isShort']
     with pytest.raises(ContentError):parse('😀'*50001)
 def test_stable_block_identity():
-    assert parse('First')['blocks'][0]['id']==parse('New paragraph\n\nFirst')['blocks'][1]['id']
+    old = parse('First')
+    new = parse('New paragraph\n\nFirst', previous=PreviousTree('a', 'd', old['blocks']), owner_id='a', document_id='d')
+    assert old['blocks'][0]['id'] == new['blocks'][1]['id']
 def test_code_excluded_from_read_time():assert parse('```\n'+('word '*1000)+'\n```')['readingMinutes']==1
 def test_read_only_api(client, settings):
     settings.DEBUG=True

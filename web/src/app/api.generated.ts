@@ -43,6 +43,21 @@ export interface components {
             code: string;
             message: string;
             requestId: string;
+            fieldErrors?: {
+                body?: {
+                    message: string;
+                    sourceSpan: [
+                        [
+                            number,
+                            number
+                        ],
+                        [
+                            number,
+                            number
+                        ]
+                    ];
+                }[];
+            };
         };
         /** @description stmts-md/1 canonical transport. Structural validation does not grant attachment access or replace parser resource limits. */
         Content: {
@@ -119,7 +134,7 @@ export interface components {
             /** @constant */
             text: "";
             children: components["schemas"]["ContentInline"][];
-            /** @description Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land. */
+            /** @description Zero-based logical line range [startLine,endLine), end exclusive, in the LF-normalized parsing view. Nonempty accurate spans only; no unknown placeholders. */
             sourceSpan: [
                 [
                     number,
@@ -138,7 +153,7 @@ export interface components {
             /** @constant */
             text: "";
             children: components["schemas"]["ContentInline"][];
-            /** @description Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land. */
+            /** @description Zero-based logical line range [startLine,endLine), end exclusive, in the LF-normalized parsing view. Nonempty accurate spans only; no unknown placeholders. */
             sourceSpan: [
                 [
                     number,
@@ -158,7 +173,7 @@ export interface components {
             /** @constant */
             text: "";
             children: components["schemas"]["ContentListItem"][];
-            /** @description Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land. */
+            /** @description Zero-based logical line range [startLine,endLine), end exclusive, in the LF-normalized parsing view. Nonempty accurate spans only; no unknown placeholders. */
             sourceSpan: [
                 [
                     number,
@@ -177,7 +192,7 @@ export interface components {
             /** @constant */
             text: "";
             children: components["schemas"]["ContentListItem"][];
-            /** @description Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land. */
+            /** @description Zero-based logical line range [startLine,endLine), end exclusive, in the LF-normalized parsing view. Nonempty accurate spans only; no unknown placeholders. */
             sourceSpan: [
                 [
                     number,
@@ -197,7 +212,7 @@ export interface components {
             /** @constant */
             text: "";
             children: components["schemas"]["ContentDocumentBlock"][];
-            /** @description Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land. */
+            /** @description Zero-based logical line range [startLine,endLine), end exclusive, in the LF-normalized parsing view. Nonempty accurate spans only; no unknown placeholders. */
             sourceSpan: [
                 [
                     number,
@@ -216,7 +231,7 @@ export interface components {
             /** @constant */
             text: "";
             children: components["schemas"]["ContentTableSection"][];
-            /** @description Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land. */
+            /** @description Zero-based logical line range [startLine,endLine), end exclusive, in the LF-normalized parsing view. Nonempty accurate spans only; no unknown placeholders. */
             sourceSpan: [
                 [
                     number,
@@ -235,7 +250,7 @@ export interface components {
             text: string;
             children: [
             ];
-            /** @description Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land. */
+            /** @description Zero-based logical line range [startLine,endLine), end exclusive, in the LF-normalized parsing view. Nonempty accurate spans only; no unknown placeholders. */
             sourceSpan: [
                 [
                     number,
@@ -256,7 +271,7 @@ export interface components {
             text: "";
             children: [
             ];
-            /** @description Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land. */
+            /** @description Zero-based logical line range [startLine,endLine), end exclusive, in the LF-normalized parsing view. Nonempty accurate spans only; no unknown placeholders. */
             sourceSpan: [
                 [
                     number,
@@ -276,7 +291,7 @@ export interface components {
             text: "";
             children: [
             ];
-            /** @description Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land. */
+            /** @description Zero-based logical line range [startLine,endLine), end exclusive, in the LF-normalized parsing view. Nonempty accurate spans only; no unknown placeholders. */
             sourceSpan: [
                 [
                     number,
@@ -301,7 +316,7 @@ export interface components {
             /** @constant */
             text: "";
             children: components["schemas"]["ContentDocumentBlock"][];
-            /** @description Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land. */
+            /** @description Zero-based logical line range [startLine,endLine), end exclusive, in the LF-normalized parsing view. Nonempty accurate spans only; no unknown placeholders. */
             sourceSpan: [
                 [
                     number,
@@ -320,7 +335,7 @@ export interface components {
             /** @constant */
             text: "";
             children: components["schemas"]["ContentDocumentBlock"][];
-            /** @description Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land. */
+            /** @description Zero-based logical line range [startLine,endLine), end exclusive, in the LF-normalized parsing view. Nonempty accurate spans only; no unknown placeholders. */
             sourceSpan: [
                 [
                     number,
@@ -340,7 +355,7 @@ export interface components {
             /** @constant */
             text: "";
             children: components["schemas"]["ContentRow"][];
-            /** @description Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land. */
+            /** @description Zero-based logical line range [startLine,endLine), end exclusive, in the LF-normalized parsing view. Nonempty accurate spans only; no unknown placeholders. */
             sourceSpan: [
                 [
                     number,
@@ -359,7 +374,7 @@ export interface components {
             /** @constant */
             text: "";
             children: components["schemas"]["ContentRow"][];
-            /** @description Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land. */
+            /** @description Zero-based logical line range [startLine,endLine), end exclusive, in the LF-normalized parsing view. Nonempty accurate spans only; no unknown placeholders. */
             sourceSpan: [
                 [
                     number,
@@ -378,7 +393,7 @@ export interface components {
             /** @constant */
             text: "";
             children: components["schemas"]["ContentTableCell"][];
-            /** @description Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land. */
+            /** @description Zero-based logical line range [startLine,endLine), end exclusive, in the LF-normalized parsing view. Nonempty accurate spans only; no unknown placeholders. */
             sourceSpan: [
                 [
                     number,
@@ -397,7 +412,7 @@ export interface components {
             /** @constant */
             text: "";
             children: components["schemas"]["ContentInline"][];
-            /** @description Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land. */
+            /** @description Zero-based logical line range [startLine,endLine), end exclusive, in the LF-normalized parsing view. Nonempty accurate spans only; no unknown placeholders. */
             sourceSpan: [
                 [
                     number,
@@ -416,7 +431,7 @@ export interface components {
             /** @constant */
             text: "";
             children: components["schemas"]["ContentInline"][];
-            /** @description Zero-based half-open source line range; derived table wrappers may use [0,0] until precise spans land. */
+            /** @description Zero-based logical line range [startLine,endLine), end exclusive, in the LF-normalized parsing view. Nonempty accurate spans only; no unknown placeholders. */
             sourceSpan: [
                 [
                     number,

@@ -2,7 +2,7 @@
 
 Initial engineering increment based on `docs/STMTS_Engineering_Spec_v1.md` and the unchanged designer kit under `design/reference/`.
 
-**Development prototype. M0 and M1 are in progress.** The Angular card and reader consume a canonical response from a Django/DRF development fixture endpoint. No accounts, real feed, publishing, storage, or media pipeline exist yet. Native projects are initial text-projection scaffolds, not verified apps.
+**Development prototype. M0 and M1 are in progress.** The rounded Quote v1.1 identity is adopted in web navigation/favicons. Task 2 parser fidelity is complete within its read-only scope; native/browser acceptance remains open. The Angular card and reader consume a canonical response from a Django/DRF development fixture endpoint. No accounts, real feed, publishing, storage, or media pipeline exist yet. Native projects are initial text-projection scaffolds, not verified apps.
 
 ## Start the API and web
 
@@ -55,3 +55,12 @@ Python dependencies are pinned in `backend/requirements.lock`; npm dependencies 
 Set POSTGRES_PASSWORD and run `docker compose -f infra/compose.yaml up -d`. PostgreSQL, Redis and RabbitMQ configuration is supplied, but Docker was unavailable during implementation and these service definitions were not started here. API workers/outbox integration will come with persistence. No SQLite substitution or database concurrency claim is made.
 
 See `docs/implementation-status.md` for evidence and remaining work. The next dependency is completing canonical schema/rendering parity and native build gates before identity or publishing.
+
+
+## Parser boundary
+
+`backend/content/parser.py` accepts unchanged Unicode source and produces the strict canonical content tree. It normalizes newlines only for parsing/spans; task state is structured, IDs are opaque and previous-tree reuse must be scoped by trusted owner/document context. Optional trusted attachment resolvers validate a manifest; no upload or fetch endpoint exists.
+
+Runtime defaults: 50,000 original code points, 2,000 canonical blocks, 12 block levels, 20,000 conversion-node allocations, 64 inline levels and a two-second cooperative processing budget. `content.worker.parse_isolated` additionally offers a configurable isolated subprocess with a 256 MiB virtual-memory cap and five-second wall deadline by default. It is tested on this Linux environment; the fixture API does not invoke it and no production parser consumer exists yet. A deployment adapter must use that boundary (or equivalent process isolation), install its own trusted media resolver and configure limits for its platform. Source is sent via stdin, not process arguments or logs.
+
+The pinned `regex` dependency supplies Unicode grapheme boundaries for excerpts. Reading time remains the approximate 220-word/minute MVP rule. The shared canonical corpus is a reviewed expectation artifact; CI does not regenerate it from parser output. Fixture post generation reconciles previous IDs so regeneration remains stable.
