@@ -1,0 +1,89 @@
+{
+  "version": "1.0.0",
+  "unitPolicy": "Web dimensions use px/rem; native spacing values map to pt/dp, never physical pixels. Native font sizes scale with user preferences.",
+  "color": {
+    "light": {
+      "canvas": "#F7F7F2",
+      "surface": "#FFFFFF",
+      "ink": "#202A24",
+      "muted": "#626D65",
+      "line": "#D9DFD7",
+      "accent": "#285C43",
+      "accent-soft": "#E8EFE4",
+      "on-accent": "#FFFFFF",
+      "danger": "#A32E33",
+      "focus": "#245BC4"
+    },
+    "dark": {
+      "canvas": "#151B18",
+      "surface": "#1D2520",
+      "ink": "#EDF1E9",
+      "muted": "#B1BDB2",
+      "line": "#46554A",
+      "accent": "#A8D5B6",
+      "accent-soft": "#283E30",
+      "on-accent": "#15271C",
+      "danger": "#FFB4B4",
+      "focus": "#AFC7FF"
+    }
+  },
+  "space": {
+    "1": 4,
+    "2": 8,
+    "3": 12,
+    "4": 16,
+    "5": 24,
+    "6": 32,
+    "7": 48,
+    "8": 64,
+    "9": 96
+  },
+  "radius": {
+    "control": 10,
+    "card": 16,
+    "media": 12,
+    "pill": 999
+  },
+  "type": {
+    "ui": {
+      "family": "system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif",
+      "size": 16,
+      "lineHeight": 1.5
+    },
+    "reading": {
+      "family": "Georgia, Times New Roman, serif",
+      "size": 20,
+      "lineHeight": 1.7
+    },
+    "display": {
+      "family": "Georgia, Times New Roman, serif",
+      "size": 48,
+      "lineHeight": 1.1
+    },
+    "code": {
+      "family": "ui-monospace, SFMono-Regular, Consolas, monospace",
+      "size": 14,
+      "lineHeight": 1.6
+    }
+  },
+  "layout": {
+    "shellMax": 1280,
+    "nav": 216,
+    "rail": 272,
+    "feedMax": 680,
+    "readingMaxCh": 68,
+    "gutter": 24,
+    "compactBelow": 768,
+    "wideFrom": 1200
+  },
+  "motion": {
+    "fast": 120,
+    "standard": 180,
+    "slow": 240
+  },
+  "target": {
+    "web": 44,
+    "ios": 44,
+    "android": 48
+  }
+}

@@ -1,0 +1,31 @@
+name: Initial increment checks
+on: [push, pull_request]
+jobs:
+  python-and-contracts:
+    runs-on: ubuntu-latest
+    env:
+      STMTS_DEVELOPMENT: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r backend/requirements.lock
+      - run: pytest -q
+      - run: python scripts/generate_fixture.py && python scripts/generate_tokens.py
+      - run: git diff --exit-code
+  angular:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24.22.1"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci
+      - run: npm run check:contract
+      - run: npm run build

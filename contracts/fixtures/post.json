@@ -1,0 +1,484 @@
+{
+  "id": "11111111-1111-4111-8111-111111111111",
+  "title": "A little more room to think.",
+  "summary": "On writing at the speed of a thought, and making space for the conversations that matter.",
+  "author": {
+    "id": "22222222-2222-4222-8222-222222222222",
+    "handle": "alexmorgan",
+    "displayName": "Alex Morgan"
+  },
+  "publishedAt": "2026-11-08T14:00:00Z",
+  "content": {
+    "dialect": "stmts-md/1",
+    "blocks": [
+      {
+        "id": "b-ca5a122ab2fe94bc045d-1",
+        "type": "paragraph",
+        "text": "",
+        "children": [
+          {
+            "id": "b-5407598a7e00f3a6b64c-1",
+            "type": "text",
+            "text": "There is room for a longer thought.",
+            "children": []
+          }
+        ],
+        "sourceSpan": [
+          0,
+          1
+        ]
+      },
+      {
+        "id": "b-c4f1e1e2fe85ffee9919-1",
+        "type": "paragraph",
+        "text": "",
+        "children": [
+          {
+            "id": "b-e8d6377e469da019f9e4-1",
+            "type": "text",
+            "text": "A statement can be a passing observation, or a place to stay a little longer. The form should follow the thought.",
+            "children": []
+          }
+        ],
+        "sourceSpan": [
+          2,
+          3
+        ]
+      },
+      {
+        "id": "b-66156b5cd24e0053fd39-1",
+        "type": "heading",
+        "text": "",
+        "children": [
+          {
+            "id": "b-148c7a85eb632f1e13b5-1",
+            "type": "text",
+            "text": "A quieter kind of conversation",
+            "children": []
+          }
+        ],
+        "depth": 2,
+        "sourceSpan": [
+          4,
+          5
+        ]
+      },
+      {
+        "id": "b-59636e722b80989b2ce0-1",
+        "type": "paragraph",
+        "text": "",
+        "children": [
+          {
+            "id": "b-a08a705d9a90942ce828-1",
+            "type": "text",
+            "text": "We are building STMTS around a simple idea: give words room to breathe. ",
+            "children": []
+          },
+          {
+            "id": "b-6bcca7c0b366f5aba883-1",
+            "type": "strong",
+            "text": "",
+            "children": [
+              {
+                "id": "b-df21c7c0fba11a611c36-1",
+                "type": "text",
+                "text": "Good writing needs space",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "b-0be0d2def5b2a0c4ed09-1",
+            "type": "text",
+            "text": ", and good conversations need people who listen.",
+            "children": []
+          }
+        ],
+        "sourceSpan": [
+          6,
+          7
+        ]
+      },
+      {
+        "id": "b-383b7bbc74dcb3c0d0d7-1",
+        "type": "quote",
+        "text": "",
+        "children": [
+          {
+            "id": "b-4e430f5e0985f0179edb-1",
+            "type": "paragraph",
+            "text": "",
+            "children": [
+              {
+                "id": "b-a98f0082788c26b60d78-1",
+                "type": "text",
+                "text": "Say what you mean. Take the time you need.",
+                "children": []
+              }
+            ],
+            "sourceSpan": [
+              8,
+              9
+            ]
+          }
+        ],
+        "sourceSpan": [
+          8,
+          9
+        ]
+      },
+      {
+        "id": "b-166e7fdca2a882b2a1f2-1",
+        "type": "heading",
+        "text": "",
+        "children": [
+          {
+            "id": "b-00a5dc083879a4be7f2f-1",
+            "type": "text",
+            "text": "Designed for reading",
+            "children": []
+          }
+        ],
+        "depth": 2,
+        "sourceSpan": [
+          10,
+          11
+        ]
+      },
+      {
+        "id": "b-177c7e459b17c571dfee-1",
+        "type": "list",
+        "text": "",
+        "children": [
+          {
+            "id": "b-5e03b76deaab35f3bf2e-1",
+            "type": "item",
+            "text": "",
+            "children": [
+              {
+                "id": "b-4c24f1f6af626214194f-1",
+                "type": "paragraph",
+                "text": "",
+                "children": [
+                  {
+                    "id": "b-e08f968939ce3652fb46-1",
+                    "type": "text",
+                    "text": "A calm, readable page",
+                    "children": []
+                  }
+                ],
+                "sourceSpan": [
+                  12,
+                  13
+                ]
+              }
+            ],
+            "sourceSpan": [
+              12,
+              13
+            ]
+          },
+          {
+            "id": "b-1b4d467a9f93254bf9ba-1",
+            "type": "item",
+            "text": "",
+            "children": [
+              {
+                "id": "b-9eef0ae394b92e9532e8-1",
+                "type": "paragraph",
+                "text": "",
+                "children": [
+                  {
+                    "id": "b-f9c5a45f0dc5c5c9a37b-1",
+                    "type": "text",
+                    "text": "A durable Markdown source",
+                    "children": []
+                  }
+                ],
+                "sourceSpan": [
+                  13,
+                  14
+                ]
+              }
+            ],
+            "sourceSpan": [
+              13,
+              14
+            ]
+          },
+          {
+            "id": "b-433128177d11cc18137b-1",
+            "type": "item",
+            "text": "",
+            "children": [
+              {
+                "id": "b-160728fb69d0862abd79-1",
+                "type": "paragraph",
+                "text": "",
+                "children": [
+                  {
+                    "id": "b-30556a692c3176c0a0e5-1",
+                    "type": "text",
+                    "text": "A conversation that continues below the fold",
+                    "children": []
+                  }
+                ],
+                "sourceSpan": [
+                  14,
+                  15
+                ]
+              }
+            ],
+            "sourceSpan": [
+              14,
+              16
+            ]
+          }
+        ],
+        "sourceSpan": [
+          12,
+          16
+        ]
+      },
+      {
+        "id": "b-4159394a88475f790557-1",
+        "type": "heading",
+        "text": "",
+        "children": [
+          {
+            "id": "b-90dd7c29102dd66b9110-1",
+            "type": "text",
+            "text": "Keep the important parts",
+            "children": []
+          }
+        ],
+        "depth": 2,
+        "sourceSpan": [
+          16,
+          17
+        ]
+      },
+      {
+        "id": "b-445319e5ebf397370fd8-1",
+        "type": "table",
+        "text": "",
+        "children": [
+          {
+            "id": "b-79e810e799d6bd3f2a16-1",
+            "type": "tableHead",
+            "text": "",
+            "children": [
+              {
+                "id": "b-494f2ee05588d785f5e1-1",
+                "type": "row",
+                "text": "",
+                "children": [
+                  {
+                    "id": "b-8f19e66a3627b0fae8d7-1",
+                    "type": "headerCell",
+                    "text": "",
+                    "children": [
+                      {
+                        "id": "b-ffb7e0f6fafa2c96dd99-1",
+                        "type": "text",
+                        "text": "Principle",
+                        "children": []
+                      }
+                    ],
+                    "sourceSpan": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "id": "b-b60d6f09ad173bd42f59-1",
+                    "type": "headerCell",
+                    "text": "",
+                    "children": [
+                      {
+                        "id": "b-2b6b31432bff4a755539-1",
+                        "type": "text",
+                        "text": "Practice",
+                        "children": []
+                      }
+                    ],
+                    "sourceSpan": [
+                      0,
+                      0
+                    ]
+                  }
+                ],
+                "sourceSpan": [
+                  18,
+                  19
+                ]
+              }
+            ],
+            "sourceSpan": [
+              18,
+              19
+            ]
+          },
+          {
+            "id": "b-09501d8a54e508e1e0ec-1",
+            "type": "tableBody",
+            "text": "",
+            "children": [
+              {
+                "id": "b-86e9e387f062c14bcd7f-1",
+                "type": "row",
+                "text": "",
+                "children": [
+                  {
+                    "id": "b-e80e04cd5dd2c134aca1-1",
+                    "type": "cell",
+                    "text": "",
+                    "children": [
+                      {
+                        "id": "b-1e13871c2f730a8b4227-1",
+                        "type": "text",
+                        "text": "Clarity",
+                        "children": []
+                      }
+                    ],
+                    "sourceSpan": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "id": "b-b9129cff9bcd96d8efaa-1",
+                    "type": "cell",
+                    "text": "",
+                    "children": [
+                      {
+                        "id": "b-dbcd43480732737f4d39-1",
+                        "type": "text",
+                        "text": "Start with the thought",
+                        "children": []
+                      }
+                    ],
+                    "sourceSpan": [
+                      0,
+                      0
+                    ]
+                  }
+                ],
+                "sourceSpan": [
+                  20,
+                  21
+                ]
+              },
+              {
+                "id": "b-ac0ebe229bb59edc2111-1",
+                "type": "row",
+                "text": "",
+                "children": [
+                  {
+                    "id": "b-45e5857652ddc7db85df-1",
+                    "type": "cell",
+                    "text": "",
+                    "children": [
+                      {
+                        "id": "b-d2ae4dd9b652eb125071-1",
+                        "type": "text",
+                        "text": "Care",
+                        "children": []
+                      }
+                    ],
+                    "sourceSpan": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "id": "b-2ffe01605481d7b3345c-1",
+                    "type": "cell",
+                    "text": "",
+                    "children": [
+                      {
+                        "id": "b-0533e8a921864b1e08f7-1",
+                        "type": "text",
+                        "text": "Make room for others",
+                        "children": []
+                      }
+                    ],
+                    "sourceSpan": [
+                      0,
+                      0
+                    ]
+                  }
+                ],
+                "sourceSpan": [
+                  21,
+                  22
+                ]
+              }
+            ],
+            "sourceSpan": [
+              20,
+              22
+            ]
+          }
+        ],
+        "sourceSpan": [
+          18,
+          22
+        ]
+      },
+      {
+        "id": "b-7a038c3e1733dbdbeb8d-1",
+        "type": "code",
+        "text": "statement = \"A little more room to think.\"\n",
+        "children": [],
+        "language": "python",
+        "sourceSpan": [
+          23,
+          26
+        ]
+      },
+      {
+        "id": "b-6ec8bb15edcf470aba63-1",
+        "type": "paragraph",
+        "text": "",
+        "children": [
+          {
+            "id": "b-2089d257809a48138f23-1",
+            "type": "text",
+            "text": "Read the ",
+            "children": []
+          },
+          {
+            "id": "b-cd214e02d14a42ff6062-1",
+            "type": "link",
+            "text": "",
+            "children": [
+              {
+                "id": "b-71c274e58c67e76c3fa8-1",
+                "type": "text",
+                "text": "CommonMark specification",
+                "children": []
+              }
+            ],
+            "url": "https://spec.commonmark.org/0.31.2/"
+          },
+          {
+            "id": "b-5ed2f327cb91d672b6bd-1",
+            "type": "text",
+            "text": ".",
+            "children": []
+          }
+        ],
+        "sourceSpan": [
+          27,
+          28
+        ]
+      }
+    ],
+    "plainText": "There is room for a longer thought. A statement can be a passing observation, or a place to stay a little longer. The form should follow the thought. A quieter kind of conversation We are building STMTS around a simple idea: give words room to breathe. Good writing needs space , and good conversations need people who listen. Say what you mean. Take the time you need. Designed for reading A calm, readable page A durable Markdown source A conversation that continues below the fold Keep the important parts Principle Practice Clarity Start with the thought Care Make room for others Read the CommonMark specification .",
+    "excerpt": "There is room for a longer thought. A statement can be a passing observation, or a place to stay a little longer. The form should follow the thought. A quieter kind of conversation We are building STMTS around a simple idea: give words room to breathe. Good writing needs space , ",
+    "readingMinutes": 1,
+    "isShort": false,
+    "validationErrors": []
+  }
+}

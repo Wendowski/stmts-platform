@@ -1,0 +1,6 @@
+# Asset use
+All SVG shapes and illustrations in this kit are original, code-authored STMTS concept artwork. They may be used and modified for this project. No third-party stock, trademarks, fonts, or photography are bundled. Sample people and posts are fictional. The illustrated covers are demo content, never default decoration on real posts.
+
+mark.svg: transparent 96-unit geometric speech-page mark. Clear space: at least 12 units on every side; minimum visible size 24px. app-icon.svg: 1024-square source, square corners; let each OS apply its own mask. PNG export is a concept source, not a complete app-store submission set. Android adaptive icon needs separate foreground/background layers and mask testing before release. Wordmark uses outlined paths; do not retype it. Use text STMTS for accessible naming, pronounced “statements.” Do not put pronunciation into every icon label.
+
+Icons: 24-unit viewBox, 1.7-unit round stroke, no fills, currentColor. Standalone files work in native vector conversion pipelines; icons.svg is a web sprite. iOS may substitute a semantically equivalent SF Symbol; Android may use a matching platform icon. Keep accessible action names stable. Never rely on an icon alone to communicate state.

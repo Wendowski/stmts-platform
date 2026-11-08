@@ -1,0 +1,19 @@
+<div class="app-shell" [class.dark]="dark()">
+<a href="#main" class="skip">Skip to content</a>
+<header><a class="brand" [routerLink]="['/']" [queryParams]="{demo:demo()?1:null}"><img src="/assets/mark.svg" alt="" width="32" height="32"/>STMTS</a><span class="tagline">A thought, at its natural length.</span><button (click)="dark.set(!dark())" [attr.aria-pressed]="dark()">{{dark()?'Light appearance':'Dark appearance'}}</button></header>
+<div class="layout"><nav aria-label="Primary"><p class="eyebrow">A SPACE FOR WORDS</p><a [routerLink]="['/']" [queryParams]="{demo:demo()?1:null}" aria-current="page">Discover</a><p class="muted">Read slowly.<br/>Stay curious.</p></nav>
+<main id="main" tabindex="-1">
+<p class="notice">Development preview · fictional content · read only</p>
+@if(state()==='loading'){<p role="status">Loading statement…</p>}
+@if(state()==='unavailable'){<h1>Statement unavailable</h1><p>This statement may have been removed.</p><a href="/?demo=1">Explore the development preview</a>}
+@if(state()==='error'){<h1>We couldn’t load this statement.</h1><p>Your connection may be unavailable.</p><button (click)="load()">Retry</button>}
+@if(post();as p){
+@if(!reader()){
+<div class="page-heading"><p class="eyebrow">THE READING ROOM</p><h1>Discover</h1><p class="muted">Ideas worth spending a little time with.</p></div>
+<article class="post-card"><div class="author"><span class="avatar" aria-hidden="true">AM</span><div><strong>{{p.author.displayName}}</strong><div class="muted">&#64;{{p.author.handle}} · <time [attr.datetime]="p.publishedAt">{{p.publishedAt | date:'mediumDate'}}</time></div></div></div><p class="topic">Notes on writing</p><h2><a [routerLink]="['/']" [queryParams]="{demo:demo()?1:null,reader:1,id:p.id}">{{p.title}}</a></h2><p class="serif">{{p.content.excerpt}}</p><div class="card-footer"><a [routerLink]="['/']" [queryParams]="{demo:demo()?1:null,reader:1,id:p.id}">Continue reading <span aria-hidden="true">↗</span></a><span class="muted">{{p.content.readingMinutes}} min read</span></div></article>
+}@else{
+<a class="back" [routerLink]="['/']" [queryParams]="{demo:demo()?1:null}">← Back to Discover</a><article class="reader"><p class="eyebrow">NOTES ON WRITING</p><h1>{{p.title}}</h1><p class="summary">{{p.summary}}</p><div class="author"><span class="avatar" aria-hidden="true">AM</span><div><strong>{{p.author.displayName}}</strong><p class="muted"><time [attr.datetime]="p.publishedAt">{{p.publishedAt | date:'longDate'}}</time> · {{p.content.readingMinutes}} min read</p></div></div>
+@if(p.content.blocks.length){<details class="toc"><summary>In this statement</summary>@for(n of p.content.blocks;track n.id){@if(n.type==='heading'){<a [href]="'#'+n.id">{{text(n.children)}}</a>}}</details>}
+<div class="prose"><stmts-blocks [nodes]="p.content.blocks"/></div><p class="endnote">A little space for a considered thought.</p></article>
+}}
+</main><aside><p class="eyebrow">WELCOME TO STMTS</p><h2>Good ideas don’t always fit in a few words.</h2><p class="muted">A place for passing thoughts, considered essays, and everything between.</p><hr/><p class="eyebrow">THE FIRST CHAPTER</p><p>This is the first reading prototype. More of the conversation is on its way.</p></aside></div><footer>STMTS <span>Thoughtfully, in progress.</span></footer></div>

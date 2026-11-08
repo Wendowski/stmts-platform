@@ -1,0 +1,57 @@
+[
+  {
+    "id": "basic",
+    "source": "## A heading\n\nA **clear** statement with *emphasis*.",
+    "expect": "body heading rendered at h3 beneath page h1; strong and emphasis text preserved"
+  },
+  {
+    "id": "code",
+    "source": "```html\n<script>alert(1)</script>\n```",
+    "expect": "literal code, never executable"
+  },
+  {
+    "id": "raw-html",
+    "source": "<script>alert(1)</script>\n<img src=x onerror=alert(1)>",
+    "expect": "escaped literal text; no script or network request"
+  },
+  {
+    "id": "url-scheme",
+    "source": "[open](javascript:alert(1))",
+    "expect": "no actionable unsafe link; validation error"
+  },
+  {
+    "id": "table",
+    "source": "| Name | Value |\n| --- | --- |\n| Alpha | 1 |",
+    "expect": "header-associated two-column table in horizontally scrollable container"
+  },
+  {
+    "id": "media",
+    "source": "![Green hills](stmts-media:11111111-1111-4111-8111-111111111111)",
+    "expect": "authorized attachment resolution; Green hills is alt; missing ID blocks publish"
+  },
+  {
+    "id": "tasks",
+    "source": "- [x] Read\n- [ ] Respond\n\n~~old~~",
+    "expect": "noninteractive checked and unchecked task states; strikethrough"
+  },
+  {
+    "id": "rtl",
+    "source": "## مرحبًا\n\nرأي قصير مع `const value = 1` و **نص**.",
+    "expect": "natural RTL prose; code LTR; emphasis preserved"
+  },
+  {
+    "id": "nested",
+    "source": "> A quiet idea.\n\n1. First\n   - Nested\n2. Second",
+    "expect": "quote, ordered list and nested unordered list preserved"
+  },
+  {
+    "id": "external-image",
+    "source": "![track](https://example.invalid/track.png)",
+    "expect": "no external fetch; readable source plus import affordance"
+  },
+  {
+    "id": "unicode",
+    "source": "A family 👨‍👩‍👧‍👦 and café.\n\n你好，世界。",
+    "expect": "no broken surrogate/grapheme rendering; code-point limits enforced consistently"
+  }
+]

@@ -1,0 +1,20 @@
+name: STMTS
+options:
+  deploymentTarget:
+    iOS: "17.0"
+packages:
+  STMTSReader:
+    path: .
+targets:
+  STMTS:
+    type: application
+    platform: iOS
+    sources: [App]
+    dependencies:
+      - package: STMTSReader
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: example.stmts.development
+        GENERATE_INFOPLIST_FILE: YES
+        SWIFT_VERSION: "6.0"
+        TARGETED_DEVICE_FAMILY: "1,2"

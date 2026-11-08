@@ -1,0 +1,171 @@
+openapi: 3.1.0
+info:
+  title: STMTS initial read-only contract
+  version: 0.1.0
+paths:
+  /v1/posts/{id}:
+    get:
+      operationId: getPost
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Current public revision (development fixture only initially)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '404':
+          description: Neutral unavailable response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Post:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - title
+      - summary
+      - author
+      - publishedAt
+      - content
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+          maxLength: 160
+        summary:
+          type: string
+          maxLength: 280
+        publishedAt:
+          type: string
+          format: date-time
+        author:
+          type: object
+          required:
+          - id
+          - handle
+          - displayName
+          properties:
+            id:
+              type: string
+              format: uuid
+            handle:
+              type: string
+            displayName:
+              type: string
+        content:
+          $ref: '#/components/schemas/Content'
+    Block:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - type
+      - text
+      - children
+      properties:
+        id:
+          type: string
+        type:
+          enum:
+          - paragraph
+          - heading
+          - list
+          - orderedList
+          - item
+          - quote
+          - table
+          - tableHead
+          - tableBody
+          - row
+          - headerCell
+          - cell
+          - code
+          - rule
+          - text
+          - codeInline
+          - strong
+          - emphasis
+          - strike
+          - link
+          - span
+        text:
+          type: string
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/Block'
+        depth:
+          type: integer
+          minimum: 1
+          maximum: 6
+        start:
+          type: integer
+        url:
+          type: string
+          pattern: ^(https?://|mailto:)
+        language:
+          type: string
+        sourceSpan:
+          type: array
+          items:
+            type: integer
+          minItems: 2
+          maxItems: 2
+    Content:
+      type: object
+      additionalProperties: false
+      required:
+      - dialect
+      - blocks
+      - plainText
+      - excerpt
+      - readingMinutes
+      - isShort
+      - validationErrors
+      properties:
+        dialect:
+          const: stmts-md/1
+        blocks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Block'
+        plainText:
+          type: string
+        excerpt:
+          type: string
+          maxLength: 280
+        readingMinutes:
+          type: integer
+          minimum: 1
+        isShort:
+          type: boolean
+        validationErrors:
+          type: array
+          items:
+            type: string
+    Error:
+      type: object
+      required:
+      - code
+      - message
+      - requestId
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        requestId:
+          type: string
