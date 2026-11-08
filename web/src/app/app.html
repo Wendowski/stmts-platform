@@ -1,6 +1,6 @@
 <div class="app-shell" [class.dark]="dark()">
 <a href="#main" class="skip">Skip to content</a>
-<header><a class="brand" [routerLink]="['/']" [queryParams]="{demo:demo()?1:null}"><img src="/assets/mark.svg" alt="" width="32" height="32"/>STMTS</a><span class="tagline">A thought, at its natural length.</span><button (click)="dark.set(!dark())" [attr.aria-pressed]="dark()">{{dark()?'Light appearance':'Dark appearance'}}</button></header>
+<header><a aria-label="STMTS" class="brand" [routerLink]="['/']" [queryParams]="{demo:demo()?1:null}"><img class="brand-lockup" [src]="dark()?'/brand/lockup-white.svg':'/brand/lockup-black.svg'" alt="" width="184" height="45"/><img class="brand-symbol" [src]="dark()?'/brand/mark-white.svg':'/brand/mark-black.svg'" alt="" width="44" height="44"/></a><span class="tagline">A thought, at its natural length.</span><button (click)="dark.set(!dark())" [attr.aria-pressed]="dark()">{{dark()?'Light appearance':'Dark appearance'}}</button></header>
 <div class="layout"><nav aria-label="Primary"><p class="eyebrow">A SPACE FOR WORDS</p><a [routerLink]="['/']" [queryParams]="{demo:demo()?1:null}" aria-current="page">Discover</a><p class="muted">Read slowly.<br/>Stay curious.</p></nav>
 <main id="main" tabindex="-1">
 <p class="notice">Development preview · fictional content · read only</p>

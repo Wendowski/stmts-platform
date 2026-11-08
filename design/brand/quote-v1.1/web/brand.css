@@ -1,0 +1,5 @@
+:root { --stmts-brand-ink:#181818; --stmts-brand-paper:#FFFFFF; --stmts-brand-stone:#E7E7E2; }
+.stmts-brand { display:inline-flex; align-items:center; }
+.stmts-brand img { display:block; width:auto; height:32px; }
+/* Choose black lockup on light surfaces and white lockup on dark surfaces.
+   Do not CSS-invert photography or raster app icons. */

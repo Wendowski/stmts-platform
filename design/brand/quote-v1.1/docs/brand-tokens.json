@@ -1,0 +1,19 @@
+{
+  "version": "1.1",
+  "direction": "The Quote",
+  "status": "Selected direction; rounded quotation refinement",
+  "name": "STMTS",
+  "pronunciation": "statements",
+  "colors": {
+    "ink": "#181818",
+    "paper": "#FFFFFF",
+    "stone": "#E7E7E2"
+  },
+  "minSizes": {
+    "markVisibleHeightPx": 24,
+    "lockupCanvasWidthPx": 160
+  },
+  "clearSpace": "At least one quotation-stem width (28 mark units), measured from visible artwork, all around. SVG canvas padding is not the full clear space.",
+  "logoType": "Outlined DejaVu Sans regular; do not retype the lockup.",
+  "markGeometry": "Rounded corners and softened diagonal tails; shared path across all variants."
+}
