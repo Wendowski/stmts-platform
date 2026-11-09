@@ -93,6 +93,24 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "shared-preview": {
+              "server": false,
+              "ssr": false,
+              "prerender": false,
+              "outputMode": "static",
+              "assets": [
+                {
+                  "glob": "**/*",
+                  "input": "public"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/app/deployment.ts",
+                  "with": "src/app/deployment.shared-preview.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"

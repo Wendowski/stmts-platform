@@ -1,0 +1,82 @@
+name: Deploy DreamHost static preview
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: dreamhost-preview
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.22.1'
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci
+        working-directory: web
+      - run: npm run check:contract
+        working-directory: web
+      - run: npm run build:shared-preview
+        working-directory: web
+      - name: Check deployment boundaries
+        run: |
+          bash -n infra/dreamhost/deploy-preview.sh
+          python tests/test_dreamhost_deploy.py
+      - name: Prepare static-only artifact
+        env:
+          DEPLOY_SHA: ${{ github.sha }}
+        run: |
+          test -f web/dist/web/browser/index.html
+          test -f web/dist/web/browser/development-post.json
+          cp infra/dreamhost/preview.htaccess web/dist/web/browser/.htaccess
+          printf '{"commit":"%s","mode":"static-preview"}\n' "$DEPLOY_SHA" > web/dist/web/browser/deployment.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dreamhost-preview
+          path: web/dist/web/browser/
+          include-hidden-files: true
+          retention-days: 14
+  deploy:
+    if: vars.DREAMHOST_DEPLOY_ENABLED == 'true' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    environment: dreamhost-preview
+    env:
+      DH_HOST: ${{ secrets.DREAMHOST_SSH_HOST }}
+      DH_USER: ${{ secrets.DREAMHOST_SSH_USER }}
+      DH_PATH: ${{ vars.DREAMHOST_DEPLOY_PATH }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: dreamhost-preview
+          path: deploy-static
+      - name: Configure SSH
+        env:
+          SSH_KEY: ${{ secrets.DREAMHOST_SSH_KEY }}
+          KNOWN_HOSTS: ${{ secrets.DREAMHOST_KNOWN_HOSTS }}
+        run: |
+          test -n "$SSH_KEY" && test -n "$KNOWN_HOSTS"
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/id_ed25519
+          printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/id_ed25519 ~/.ssh/known_hosts
+      - name: Deploy preview over verified SSH
+        run: bash infra/dreamhost/deploy-preview.sh deploy-static
+      - name: Verify published revision
+        env:
+          PREVIEW_URL: ${{ vars.DREAMHOST_PREVIEW_URL }}
+          DEPLOY_SHA: ${{ github.sha }}
+        run: |
+          [[ "$PREVIEW_URL" == https://* ]] || exit 1
+          curl --fail --silent --show-error --retry 3 "$PREVIEW_URL/deployment.json?revision=$DEPLOY_SHA" -o /tmp/deployment.json
+          python -c 'import json,os; assert json.load(open("/tmp/deployment.json"))["commit"] == os.environ["DEPLOY_SHA"]'
+      - name: Remove SSH key
+        if: always()
+        run: rm -f ~/.ssh/id_ed25519

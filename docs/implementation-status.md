@@ -76,3 +76,10 @@ Observed validation:
 - Representative single-process measurements (not a load report): 2,000 paragraphs accepted in 85.8ms; 500-row table accepted in 39.4ms; punctuation-heavy safety rejection in 135.4ms; observed peak RSS reached 31,148 KiB across those cases. Hard memory exhaustion stress testing is not claimed.
 
 M0/M1 remain in progress. Task 3 is next: Angular canonical routes, task/media rendering, TOC threshold and failure states. Native builds, browser visual/accessibility/device evidence, persistence, authentication and publishing remain unverified or unimplemented as previously recorded. No remote is configured; commits remain local and included in the source archive/history bundle.
+
+
+## DreamHost deployment workflow — 9 November 2026
+
+Added `.github/workflows/deploy-dreamhost.yml` for an explicitly fictional/read-only static Angular preview on shared hosting. Builds run on main pushes or manual dispatch; deployment requires the enable variable, configured environment/secrets and a remote directory marker. Host verification remains enabled. No server bundles, backend source or .env files are uploaded; no remote delete is used. Assets upload before index and revision metadata, with an HTTPS revision check afterward. This is not an atomic release/automatic rollback system.
+
+Verified: shared-preview Angular build passes; deployment boundary tests pass (valid command ordering and rejected unsafe paths); Bash syntax check passes; standard production build passes and excludes development JSON. Workflow requires GitHub execution and actual DreamHost credentials for live deployment verification; neither a push nor remote upload was performed. Task 3 remains next. See docs/dreamhost-deployment.md for setup and the full-stack hosting limitations.

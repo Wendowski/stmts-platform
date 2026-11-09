@@ -64,3 +64,8 @@ See `docs/implementation-status.md` for evidence and remaining work. The next de
 Runtime defaults: 50,000 original code points, 2,000 canonical blocks, 12 block levels, 20,000 conversion-node allocations, 64 inline levels and a two-second cooperative processing budget. `content.worker.parse_isolated` additionally offers a configurable isolated subprocess with a 256 MiB virtual-memory cap and five-second wall deadline by default. It is tested on this Linux environment; the fixture API does not invoke it and no production parser consumer exists yet. A deployment adapter must use that boundary (or equivalent process isolation), install its own trusted media resolver and configure limits for its platform. Source is sent via stdin, not process arguments or logs.
 
 The pinned `regex` dependency supplies Unicode grapheme boundaries for excerpts. Reading time remains the approximate 220-word/minute MVP rule. The shared canonical corpus is a reviewed expectation artifact; CI does not regenerate it from parser output. Fixture post generation reconciles previous IDs so regeneration remains stable.
+
+
+## DreamHost hosting
+
+See [DreamHost deployment](docs/dreamhost-deployment.md) for the GitHub Actions workflow, required SSH secrets/variables and rollback procedure. Shared hosting supports the explicit `build:shared-preview` static demonstration only. The planned live backend and SSR require suitable persistent-process/database hosting.
